@@ -5,18 +5,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-// 临时定义LastVideoKey类以解决编译错误
-class LastVideoKey {
-  static const String lastVideoBvid = 'lastVideoBvid';
-  static const String lastVideoCid = 'lastVideoCid';
-  static const String lastVideoAid = 'lastVideoAid';
-  static const String lastVideoTitle = 'lastVideoTitle';
-  static const String lastVideoCover = 'lastVideoCover';
-  static const String lastVideoBusiness = 'lastVideoBusiness';
-  static const String lastVideoEpid = 'lastVideoEpid';
-  static const String lastVideoPage = 'lastVideoPage';
-  static const String lastVideoTimestamp = 'lastVideoTimestamp';
-}
+
 
 import 'package:PiliPlus/utils/storage_key.dart';
 
@@ -93,6 +82,19 @@ import 'package:get/get.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:media_kit/media_kit.dart' hide Subtitle;
 import 'package:path/path.dart' as path;
+
+// 临时定义LastVideoKey类以解决编译错误
+class LastVideoKey {
+  static const String lastVideoBvid = 'lastVideoBvid';
+  static const String lastVideoCid = 'lastVideoCid';
+  static const String lastVideoAid = 'lastVideoAid';
+  static const String lastVideoTitle = 'lastVideoTitle';
+  static const String lastVideoCover = 'lastVideoCover';
+  static const String lastVideoBusiness = 'lastVideoBusiness';
+  static const String lastVideoEpid = 'lastVideoEpid';
+  static const String lastVideoPage = 'lastVideoPage';
+  static const String lastVideoTimestamp = 'lastVideoTimestamp';
+}
 
 class VideoDetailController extends GetxController
     with GetTickerProviderStateMixin, BlockMixin {
