@@ -3,8 +3,22 @@ import 'dart:io';
 import 'dart:math' show min;
 import 'dart:ui';
 
-import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:flutter/material.dart';
+
+// 临时定义LastVideoKey类以解决编译错误
+class LastVideoKey {
+  static const String lastVideoBvid = 'lastVideoBvid';
+  static const String lastVideoCid = 'lastVideoCid';
+  static const String lastVideoAid = 'lastVideoAid';
+  static const String lastVideoTitle = 'lastVideoTitle';
+  static const String lastVideoCover = 'lastVideoCover';
+  static const String lastVideoBusiness = 'lastVideoBusiness';
+  static const String lastVideoEpid = 'lastVideoEpid';
+  static const String lastVideoPage = 'lastVideoPage';
+  static const String lastVideoTimestamp = 'lastVideoTimestamp';
+}
+
+import 'package:PiliPlus/utils/storage_key.dart';
 
 import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/pair.dart';
