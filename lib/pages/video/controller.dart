@@ -1539,8 +1539,8 @@ class VideoDetailController extends GetxController
         builder: (context) {
           final maxChildSize =
               PlatformUtils.isMobile && !context.mediaQuerySize.isPortrait
-              ? 1.0
-              : 0.7;
+                  ? 1.0
+                  : 0.7;
           return DraggableScrollableSheet(
             snap: true,
             expand: false,
@@ -1575,92 +1575,3 @@ class VideoDetailController extends GetxController
     }) => TextFormField(
       minLines: 1,
       maxLines: 3,
-      onChanged: onChanged,
-      initialValue: initialValue,
-      decoration: InputDecoration(
-        label: Text(label),
-        border: const OutlineInputBorder(),
-      ),
-    );
-    showDialog(
-      context: Get.context!,
-      builder: (context) => AlertDialog(
-        constraints: Style.dialogFixedConstraints,
-        title: const Text('播放地址'),
-        content: Column(
-          spacing: 20,
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            textField(
-              label: 'Video Url',
-              initialValue: videoUrl,
-              onChanged: (value) => videoUrl = value,
-            ),
-            textField(
-              label: 'Audio Url',
-              initialValue: audioUrl,
-              onChanged: (value) => audioUrl = value,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.back();
-              this.videoUrl = videoUrl;
-              this.audioUrl = audioUrl;
-              playerInit();
-            },
-            child: const Text('确定'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  @pragma('vm:notify-debugger-on-exception')
-  Future<void> onCast() async {
-    SmartDialog.showLoading();
-    final res = await VideoHttp.tvPlayUrl(
-      cid: cid.value,
-      objectId: epId ?? aid,
-      playurlType: epId != null ? 2 : 1,
-      qn: currentVideoQa.value?.code,
-    );
-    SmartDialog.dismiss();
-    if (res case Success(:final response)) {
-      final first = response.durl?.firstOrNull;
-      if (first == null || first.playUrls.isEmpty) {
-        SmartDialog.showToast('不支持投屏');
-        return;
-      }
-      final url = VideoUtils.getCdnUrl(first.playUrls);
-
-      String? title;
-      try {
-        if (isUgc) {
-          title = Get.find<UgcIntroController>(
-            tag: heroTag,
-          ).videoDetail.value.title;
-        } else {
-          title = Get.find<PgcIntroController>(
-            tag: heroTag,
-          ).videoDetail.value.title;
-        }
-      } catch (_) {}
-      if (kDebugMode) {
-        debugPrint(title);
-      }
-      Get.toNamed(
-        '/dlna',
-        parameters: {
-          'url': url,
-          'title': ?title,
-        },
-      );
-    } else {
-      res.toast();
-    }
-  }
-}
