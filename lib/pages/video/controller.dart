@@ -1543,3 +1543,40 @@ class VideoDetailController extends GetxController
         border: const OutlineInputBorder(),
       ),
     );
+
+    Get.defaultDialog(
+      title: '编辑播放地址',
+      content: Column(
+        children: [
+          textField(
+            label: '视频地址',
+            initialValue: videoUrl,
+            onChanged: (value) => videoUrl = value,
+          ),
+          const SizedBox(height: 16),
+          textField(
+            label: '音频地址',
+            initialValue: audioUrl,
+            onChanged: (value) => audioUrl = value,
+          ),
+        ],
+      ),
+      confirm: ElevatedButton(
+        onPressed: () {
+          this.videoUrl = videoUrl;
+          this.audioUrl = audioUrl;
+          Get.back();
+        },
+        child: const Text('保存'),
+      ),
+      cancel: ElevatedButton(
+        onPressed: () => Get.back(),
+        child: const Text('取消'),
+      ),
+    );
+  }
+
+  // 添加onCast方法
+  void onCast() {
+    // 实现投屏功能
+  }
