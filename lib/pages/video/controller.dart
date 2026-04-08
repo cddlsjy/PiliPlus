@@ -3,8 +3,8 @@ import 'dart:io';
 import 'dart:math' show min;
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
 import 'package:PiliPlus/utils/storage_key.dart';
+import 'package:flutter/material.dart';
 
 import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/pair.dart';
