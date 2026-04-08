@@ -3,6 +3,8 @@ import 'dart:io';
 import 'dart:math' show min;
 import 'dart:ui';
 
+import 'package:PiliPlus/utils/storage_key.dart';
+
 import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/pair.dart';
 import 'package:PiliPlus/common/widgets/progress_bar/segment_progress_bar.dart';
@@ -313,7 +315,7 @@ class VideoDetailController extends GetxController
         try {
           final introCtr = Get.find<PgcIntroController>(tag: heroTag);
           title = introCtr.videoDetail.value.title;
-          cover = introCtr.videoDetail.value.cover;
+          cover = introCtr.videoDetail.value.pic;
         } catch (_) {}
         // PGC视频保存epid
         if (epId != null) {
