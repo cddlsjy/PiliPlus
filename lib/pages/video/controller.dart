@@ -62,6 +62,7 @@ import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:PiliPlus/utils/path_utils.dart';
 import 'package:PiliPlus/utils/platform_utils.dart';
 import 'package:PiliPlus/utils/storage.dart';
+import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:PiliPlus/utils/utils.dart';
 import 'package:PiliPlus/utils/video_utils.dart';
@@ -277,6 +278,62 @@ class VideoDetailController extends GetxController
       watchProgress.put(cid.value.toString(), entry.totalTimeMilli);
     } else if (playedTime case final playedTime?) {
       watchProgress.put(cid.value.toString(), playedTime.inMilliseconds);
+    }
+  }
+
+  /// 保存当前视频信息用于下次启动时自动播放
+  void saveLastVideoInfo() {
+    if (!Pref.enableSaveLastData) return;
+    try {
+      final videoBox = GStorage.video;
+      videoBox.put(LastVideoKey.lastVideoBvid, bvid);
+      videoBox.put(LastVideoKey.lastVideoCid, cid.value);
+      videoBox.put(LastVideoKey.lastVideoAid, aid);
+      videoBox.put(LastVideoKey.lastVideoBusiness, videoType.name);
+
+      // 获取标题和封面
+      String? title;
+      String? cover;
+      int? pageIndex;
+
+      if (isUgc) {
+        try {
+          final introCtr = Get.find<UgcIntroController>(tag: heroTag);
+          title = introCtr.videoDetail.value.title;
+          cover = introCtr.videoDetail.value.pic;
+          // 获取当前分P索引
+          if (introCtr.currentPageIndex < introCtr.pages.length) {
+            pageIndex = introCtr.currentPageIndex;
+          }
+        } catch (_) {}
+      } else {
+        try {
+          final introCtr = Get.find<PgcIntroController>(tag: heroTag);
+          title = introCtr.videoDetail.value.title;
+          cover = introCtr.videoDetail.value.cover;
+        } catch (_) {}
+        // PGC视频保存epid
+        if (epId != null) {
+          videoBox.put(LastVideoKey.lastVideoEpid, epId);
+        }
+      }
+
+      if (title != null) {
+        videoBox.put(LastVideoKey.lastVideoTitle, title);
+      }
+      if (cover != null) {
+        videoBox.put(LastVideoKey.lastVideoCover, cover);
+      }
+      if (pageIndex != null) {
+        videoBox.put(LastVideoKey.lastVideoPage, pageIndex);
+      }
+
+      // 保存当前播放进度
+      if (playedTime != null) {
+        videoBox.put(LastVideoKey.lastVideoTimestamp, playedTime!.inMilliseconds);
+      }
+    } catch (_) {
+      // 忽略保存错误，不影响正常播放
     }
   }
 
@@ -711,6 +768,7 @@ class VideoDetailController extends GetxController
       onInit: () {
         videoState.value = true;
         setSubtitle(vttSubtitlesIndex.value);
+        saveLastVideoInfo();
       },
       width: firstVideo.width,
       height: firstVideo.height,
@@ -1192,6 +1250,50 @@ class VideoDetailController extends GetxController
     }
   }
 
+  /// 保存最后观看的视频信息，用于启动时自动播放
+  void saveLastVideoInfo() {
+    try {
+      String? title;
+      String? pic;
+      int? pageIndex;
+
+      // 获取标题和封面
+      if (isUgc) {
+        final ugcIntro = Get.find<UgcIntroController>(tag: heroTag);
+        title = ugcIntro.videoDetail.value.title;
+        pic = ugcIntro.videoDetail.value.pic;
+        // 计算当前分P索引
+        final pages = ugcIntro.videoDetail.value.pages;
+        if (pages != null) {
+          pageIndex = pages.indexWhere((p) => p.cid == cid.value);
+        }
+      } else {
+        final pgcIntro = Get.find<PgcIntroController>(tag: heroTag);
+        title = pgcIntro.videoDetail.value.title;
+        pic = pgcIntro.videoDetail.value.cover;
+        // 计算当前剧集索引
+        final episodes = pgcIntro.pgcItem.episodes;
+        if (episodes != null) {
+          pageIndex = episodes.indexWhere((e) => e.cid == cid.value);
+        }
+      }
+
+      // 保存到本地存储
+      final videoBox = GStorage.video;
+      videoBox.put(LastVideoKey.lastVideoBvid, bvid);
+      videoBox.put(LastVideoKey.lastVideoCid, cid.value);
+      videoBox.put(LastVideoKey.lastVideoAid, aid);
+      videoBox.put(LastVideoKey.lastVideoTitle, title ?? '');
+      videoBox.put(LastVideoKey.lastVideoCover, pic ?? '');
+      videoBox.put(LastVideoKey.lastVideoBusiness, videoType.name);
+      videoBox.put(LastVideoKey.lastVideoEpid, epId);
+      videoBox.put(LastVideoKey.lastVideoPage, pageIndex ?? 0);
+      videoBox.put(LastVideoKey.lastVideoTimestamp, DateTime.now().millisecondsSinceEpoch);
+    } catch (_) {
+      // 忽略错误，不影响正常播放
+    }
+  }
+
   @override
   void onClose() {
     cid.close();
@@ -1437,8 +1539,8 @@ class VideoDetailController extends GetxController
         builder: (context) {
           final maxChildSize =
               PlatformUtils.isMobile && !context.mediaQuerySize.isPortrait
-              ? 1.0
-              : 0.7;
+                  ? 1.0
+                  : 0.7;
           return DraggableScrollableSheet(
             snap: true,
             expand: false,
@@ -1473,92 +1575,3 @@ class VideoDetailController extends GetxController
     }) => TextFormField(
       minLines: 1,
       maxLines: 3,
-      onChanged: onChanged,
-      initialValue: initialValue,
-      decoration: InputDecoration(
-        label: Text(label),
-        border: const OutlineInputBorder(),
-      ),
-    );
-    showDialog(
-      context: Get.context!,
-      builder: (context) => AlertDialog(
-        constraints: Style.dialogFixedConstraints,
-        title: const Text('播放地址'),
-        content: Column(
-          spacing: 20,
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            textField(
-              label: 'Video Url',
-              initialValue: videoUrl,
-              onChanged: (value) => videoUrl = value,
-            ),
-            textField(
-              label: 'Audio Url',
-              initialValue: audioUrl,
-              onChanged: (value) => audioUrl = value,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.back();
-              this.videoUrl = videoUrl;
-              this.audioUrl = audioUrl;
-              playerInit();
-            },
-            child: const Text('确定'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  @pragma('vm:notify-debugger-on-exception')
-  Future<void> onCast() async {
-    SmartDialog.showLoading();
-    final res = await VideoHttp.tvPlayUrl(
-      cid: cid.value,
-      objectId: epId ?? aid,
-      playurlType: epId != null ? 2 : 1,
-      qn: currentVideoQa.value?.code,
-    );
-    SmartDialog.dismiss();
-    if (res case Success(:final response)) {
-      final first = response.durl?.firstOrNull;
-      if (first == null || first.playUrls.isEmpty) {
-        SmartDialog.showToast('不支持投屏');
-        return;
-      }
-      final url = VideoUtils.getCdnUrl(first.playUrls);
-
-      String? title;
-      try {
-        if (isUgc) {
-          title = Get.find<UgcIntroController>(
-            tag: heroTag,
-          ).videoDetail.value.title;
-        } else {
-          title = Get.find<PgcIntroController>(
-            tag: heroTag,
-          ).videoDetail.value.title;
-        }
-      } catch (_) {}
-      if (kDebugMode) {
-        debugPrint(title);
-      }
-      Get.toNamed(
-        '/dlna',
-        parameters: {
-          'url': url,
-          'title': ?title,
-        },
-      );
-    } else {
-      res.toast();
-    }
-  }
-}
