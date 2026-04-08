@@ -48,6 +48,7 @@ import 'package:PiliPlus/pages/video/post_panel/view.dart';
 import 'package:PiliPlus/pages/video/send_danmaku/view.dart';
 import 'package:PiliPlus/pages/video/widgets/header_control.dart';
 import 'package:PiliPlus/plugin/pl_player/controller.dart';
+import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/plugin/pl_player/models/data_source.dart';
 import 'package:PiliPlus/plugin/pl_player/models/heart_beat_type.dart';
 import 'package:PiliPlus/plugin/pl_player/models/play_status.dart';
@@ -302,8 +303,10 @@ class VideoDetailController extends GetxController
           title = introCtr.videoDetail.value.title;
           cover = introCtr.videoDetail.value.pic;
           // 获取当前分P索引
-          if (introCtr.currentPageIndex < introCtr.pages.length) {
-            pageIndex = introCtr.currentPageIndex;
+          final pages = introCtr.videoDetail.value.pages;
+          if (pages != null && pages.isNotEmpty) {
+            pageIndex = pages.indexWhere((page) => page.cid == cid.value);
+            if (pageIndex == -1) pageIndex = 0;
           }
         } catch (_) {}
       } else {
@@ -1250,49 +1253,7 @@ class VideoDetailController extends GetxController
     }
   }
 
-  /// 保存最后观看的视频信息，用于启动时自动播放
-  void saveLastVideoInfo() {
-    try {
-      String? title;
-      String? pic;
-      int? pageIndex;
 
-      // 获取标题和封面
-      if (isUgc) {
-        final ugcIntro = Get.find<UgcIntroController>(tag: heroTag);
-        title = ugcIntro.videoDetail.value.title;
-        pic = ugcIntro.videoDetail.value.pic;
-        // 计算当前分P索引
-        final pages = ugcIntro.videoDetail.value.pages;
-        if (pages != null) {
-          pageIndex = pages.indexWhere((p) => p.cid == cid.value);
-        }
-      } else {
-        final pgcIntro = Get.find<PgcIntroController>(tag: heroTag);
-        title = pgcIntro.videoDetail.value.title;
-        pic = pgcIntro.videoDetail.value.cover;
-        // 计算当前剧集索引
-        final episodes = pgcIntro.pgcItem.episodes;
-        if (episodes != null) {
-          pageIndex = episodes.indexWhere((e) => e.cid == cid.value);
-        }
-      }
-
-      // 保存到本地存储
-      final videoBox = GStorage.video;
-      videoBox.put(LastVideoKey.lastVideoBvid, bvid);
-      videoBox.put(LastVideoKey.lastVideoCid, cid.value);
-      videoBox.put(LastVideoKey.lastVideoAid, aid);
-      videoBox.put(LastVideoKey.lastVideoTitle, title ?? '');
-      videoBox.put(LastVideoKey.lastVideoCover, pic ?? '');
-      videoBox.put(LastVideoKey.lastVideoBusiness, videoType.name);
-      videoBox.put(LastVideoKey.lastVideoEpid, epId);
-      videoBox.put(LastVideoKey.lastVideoPage, pageIndex ?? 0);
-      videoBox.put(LastVideoKey.lastVideoTimestamp, DateTime.now().millisecondsSinceEpoch);
-    } catch (_) {
-      // 忽略错误，不影响正常播放
-    }
-  }
 
   @override
   void onClose() {
@@ -1575,3 +1536,10 @@ class VideoDetailController extends GetxController
     }) => TextFormField(
       minLines: 1,
       maxLines: 3,
+      initialValue: initialValue,
+      onChanged: onChanged,
+      decoration: InputDecoration(
+        labelText: label,
+        border: const OutlineInputBorder(),
+      ),
+    );
