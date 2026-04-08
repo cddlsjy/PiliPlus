@@ -3,6 +3,8 @@ import 'dart:io';
 import 'dart:math' show min;
 import 'dart:ui';
 
+import 'package:PiliPlus/utils/storage_key.dart';
+
 import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/pair.dart';
 import 'package:PiliPlus/common/widgets/progress_bar/segment_progress_bar.dart';
@@ -313,7 +315,7 @@ class VideoDetailController extends GetxController
         try {
           final introCtr = Get.find<PgcIntroController>(tag: heroTag);
           title = introCtr.videoDetail.value.title;
-          cover = introCtr.videoDetail.value.cover;
+          cover = introCtr.videoDetail.value.pic;
         } catch (_) {}
         // PGC视频保存epid
         if (epId != null) {
@@ -1539,4 +1541,44 @@ class VideoDetailController extends GetxController
       initialValue: initialValue,
       onChanged: onChanged,
       decoration: InputDecoration(
-      
+        labelText: label,
+        border: const OutlineInputBorder(),
+      ),
+    );
+
+    Get.defaultDialog(
+      title: '编辑播放地址',
+      content: Column(
+        children: [
+          textField(
+            label: '视频地址',
+            initialValue: videoUrl,
+            onChanged: (value) => videoUrl = value,
+          ),
+          const SizedBox(height: 16),
+          textField(
+            label: '音频地址',
+            initialValue: audioUrl,
+            onChanged: (value) => audioUrl = value,
+          ),
+        ],
+      ),
+      confirm: ElevatedButton(
+        onPressed: () {
+          this.videoUrl = videoUrl;
+          this.audioUrl = audioUrl;
+          Get.back();
+        },
+        child: const Text('保存'),
+      ),
+      cancel: ElevatedButton(
+        onPressed: () => Get.back(),
+        child: const Text('取消'),
+      ),
+    );
+  }
+
+  // 添加onCast方法
+  void onCast() {
+    // 实现投屏功能
+  }
