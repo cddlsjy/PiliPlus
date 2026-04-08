@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'dart:io' show exit, Platform;
-import 'dart:math' as math;
 
 import 'package:PiliPlus/pages/common/common_intro_controller.dart';
 import 'package:PiliPlus/pages/video/introduction/ugc/controller.dart';
@@ -14,7 +12,7 @@ import 'package:flutter/services.dart'
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
-class PlayerFocus extends StatelessWidget {
+class PlayerFocus extends StatefulWidget {
   const PlayerFocus({
     super.key,
     required this.child,
@@ -34,12 +32,25 @@ class PlayerFocus extends StatelessWidget {
   final ValueGetter<bool>? onSkipSegment;
   final VoidCallback? onRefresh;
 
+  @override
+  State<PlayerFocus> createState() => _PlayerFocusState();
+}
+
+class _PlayerFocusState extends State<PlayerFocus> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   static bool _shouldHandle(LogicalKeyboardKey logicalKey) {
     return logicalKey == LogicalKeyboardKey.tab ||
         logicalKey == LogicalKeyboardKey.arrowLeft ||
         logicalKey == LogicalKeyboardKey.arrowRight ||
         logicalKey == LogicalKeyboardKey.arrowUp ||
-        logicalKey == LogicalKeyboardKey.arrowDown;
+        logicalKey == LogicalKeyboardKey.arrowDown ||
+        logicalKey == LogicalKeyboardKey.enter ||
+        logicalKey == LogicalKeyboardKey.gameButtonA ||
+        logicalKey == LogicalKeyboardKey.ok;
   }
 
   @override
@@ -53,36 +64,38 @@ class PlayerFocus extends StatelessWidget {
         }
         return KeyEventResult.ignored;
       },
-      child: child,
+      child: widget.child,
     );
   }
 
-  bool get isFullScreen => plPlayerController.isFullScreen.value;
-  bool get hasPlayer => plPlayerController.videoPlayerController != null;
+  bool get isFullScreen => widget.plPlayerController.isFullScreen.value;
+  bool get hasPlayer => widget.plPlayerController.videoPlayerController != null;
 
-  void _setVolume({required bool isIncrease}) {
-    final volume = isIncrease
-        ? math.min(
-            PlPlayerController.maxVolume,
-            plPlayerController.volume.value + 0.1,
-          )
-        : math.max(0.0, plPlayerController.volume.value - 0.1);
-    plPlayerController.setVolume(volume);
+  /// 处理遥控器上键 - 切换上一个视频
+  void _handleRemoteUp() {
+    if (widget.introController != null) {
+      if (!widget.introController!.prevPlay()) {
+        SmartDialog.showToast('已经是第一个了');
+      }
+    }
   }
 
-  void _updateVolume(KeyEvent event, {required bool isIncrease}) {
-    if (event is KeyDownEvent) {
-      if (hasPlayer) {
-        _setVolume(isIncrease: isIncrease);
-        plPlayerController
-          ..longPressTimer?.cancel()
-          ..longPressTimer = Timer.periodic(
-            const Duration(milliseconds: 150),
-            (_) => _setVolume(isIncrease: isIncrease),
-          );
+  /// 处理遥控器下键 - 切换下一个视频
+  void _handleRemoteDown() {
+    if (widget.introController != null) {
+      if (!widget.introController!.nextPlay()) {
+        SmartDialog.showToast('已经是最后一个了');
       }
-    } else if (event is KeyUpEvent) {
-      plPlayerController.cancelLongPressTimer();
+    }
+  }
+
+  /// 处理遥控器OK键 - 暂停/恢复播放
+  void _handleRemoteOk() {
+    if (hasPlayer) {
+      widget.plPlayerController.onDoubleTapCenter();
+      SmartDialog.showToast(
+        widget.plPlayerController.playerStatus.isPlaying ? '已暂停' : '已播放'
+      );
     }
   }
 
@@ -98,44 +111,61 @@ class PlayerFocus extends StatelessWidget {
         return true;
       }
       if (event is KeyDownEvent) {
-        if (plPlayerController.isLive) {
-          onRefresh?.call();
+        if (widget.plPlayerController.isLive) {
+          widget.onRefresh?.call();
         } else {
-          introController!.onStartTriple();
+          widget.introController!.onStartTriple();
         }
-      } else if (event is KeyUpEvent && !plPlayerController.isLive) {
-        introController!.onCancelTriple(isKeyQ);
+      } else if (event is KeyUpEvent && !widget.plPlayerController.isLive) {
+        widget.introController!.onCancelTriple(isKeyQ);
       }
       return true;
     }
 
     final isArrowUp = key == LogicalKeyboardKey.arrowUp;
     if (isArrowUp || key == LogicalKeyboardKey.arrowDown) {
-      _updateVolume(event, isIncrease: isArrowUp);
+      // 上键切换上一个视频，下键切换下一个视频
+      if (event is KeyDownEvent) {
+        if (isArrowUp) {
+          _handleRemoteUp();
+        } else {
+          _handleRemoteDown();
+        }
+      }
+      return true;
+    }
+
+    // 遥控器OK键处理 - 暂停/恢复播放
+    if (key == LogicalKeyboardKey.enter ||
+        key == LogicalKeyboardKey.gameButtonA ||
+        key == LogicalKeyboardKey.ok) {
+      if (event is KeyDownEvent) {
+        _handleRemoteOk();
+      }
       return true;
     }
 
     if (key == LogicalKeyboardKey.arrowRight) {
-      if (!plPlayerController.isLive) {
+      if (!widget.plPlayerController.isLive) {
         if (event is KeyDownEvent) {
-          if (hasPlayer && !plPlayerController.longPressStatus.value) {
-            plPlayerController
+          if (hasPlayer && !widget.plPlayerController.longPressStatus.value) {
+            widget.plPlayerController
               ..longPressTimer?.cancel()
               ..longPressTimer = Timer(
                 const Duration(milliseconds: 200),
-                () => plPlayerController
+                () => widget.plPlayerController
                   ..cancelLongPressTimer()
                   ..setLongPressStatus(true),
               );
           }
         } else if (event is KeyUpEvent) {
-          plPlayerController.cancelLongPressTimer();
+          widget.plPlayerController.cancelLongPressTimer();
           if (hasPlayer) {
-            if (plPlayerController.longPressStatus.value) {
-              plPlayerController.setLongPressStatus(false);
+            if (widget.plPlayerController.longPressStatus.value) {
+              widget.plPlayerController.setLongPressStatus(false);
             } else {
-              plPlayerController.onForward(
-                plPlayerController.fastForBackwardDuration,
+              widget.plPlayerController.onForward(
+                widget.plPlayerController.fastForBackwardDuration,
               );
             }
           }
@@ -149,8 +179,8 @@ class PlayerFocus extends StatelessWidget {
       if (isDigit1 || key == LogicalKeyboardKey.digit2) {
         if (HardwareKeyboard.instance.isShiftPressed && hasPlayer) {
           final speed = isDigit1 ? 1.0 : 2.0;
-          if (speed != plPlayerController.playbackSpeed) {
-            plPlayerController.setPlaybackSpeed(speed);
+          if (speed != widget.plPlayerController.playbackSpeed) {
+            widget.plPlayerController.setPlaybackSpeed(speed);
           }
           SmartDialog.showToast('${speed}x播放');
         }
@@ -159,32 +189,32 @@ class PlayerFocus extends StatelessWidget {
 
       switch (key) {
         case LogicalKeyboardKey.space:
-          if (plPlayerController.isLive || canPlay!()) {
+          if (widget.plPlayerController.isLive || widget.canPlay!()) {
             if (hasPlayer) {
-              plPlayerController.onDoubleTapCenter();
+              widget.plPlayerController.onDoubleTapCenter();
             }
           }
           return true;
 
         case LogicalKeyboardKey.keyF:
           final isFullScreen = this.isFullScreen;
-          if (isFullScreen && plPlayerController.controlsLock.value) {
-            plPlayerController
+          if (isFullScreen && widget.plPlayerController.controlsLock.value) {
+            widget.plPlayerController
               ..controlsLock.value = false
               ..showControls.value = false;
           }
-          plPlayerController.triggerFullScreen(
+          widget.plPlayerController.triggerFullScreen(
             status: !isFullScreen,
             inAppFullScreen: HardwareKeyboard.instance.isShiftPressed,
           );
           return true;
 
         case LogicalKeyboardKey.keyD:
-          final newVal = !plPlayerController.enableShowDanmaku.value;
-          plPlayerController.enableShowDanmaku.value = newVal;
-          if (!plPlayerController.tempPlayerConf) {
+          final newVal = !widget.plPlayerController.enableShowDanmaku.value;
+          widget.plPlayerController.enableShowDanmaku.value = newVal;
+          if (!widget.plPlayerController.tempPlayerConf) {
             GStorage.setting.put(
-              plPlayerController.isLive
+              widget.plPlayerController.isLive
                   ? SettingBoxKey.enableShowLiveDanmaku
                   : SettingBoxKey.enableShowDanmaku,
               newVal,
@@ -194,7 +224,7 @@ class PlayerFocus extends StatelessWidget {
 
         case LogicalKeyboardKey.keyP:
           if (PlatformUtils.isDesktop && hasPlayer && !isFullScreen) {
-            plPlayerController
+            widget.plPlayerController
               ..toggleDesktopPip()
               ..controlsLock.value = false
               ..showControls.value = false;
@@ -203,43 +233,44 @@ class PlayerFocus extends StatelessWidget {
 
         case LogicalKeyboardKey.keyM:
           if (hasPlayer) {
-            final isMuted = !plPlayerController.isMuted;
-            plPlayerController.videoPlayerController!.setVolume(
-              isMuted ? 0 : plPlayerController.volume.value * 100,
+            final isMuted = !widget.plPlayerController.isMuted;
+            widget.plPlayerController.videoPlayerController!.setVolume(
+              isMuted ? 0 : widget.plPlayerController.volume.value * 100,
             );
-            plPlayerController.isMuted = isMuted;
+            widget.plPlayerController.isMuted = isMuted;
             SmartDialog.showToast('${isMuted ? '' : '取消'}静音');
           }
           return true;
 
         case LogicalKeyboardKey.keyS:
           if (hasPlayer && isFullScreen) {
-            plPlayerController.takeScreenshot();
+            widget.plPlayerController.takeScreenshot();
           }
           return true;
 
         case LogicalKeyboardKey.keyL:
-          if (isFullScreen || plPlayerController.isDesktopPip) {
-            plPlayerController.onLockControl(
-              !plPlayerController.controlsLock.value,
+          if (isFullScreen || widget.plPlayerController.isDesktopPip) {
+            widget.plPlayerController.onLockControl(
+              !widget.plPlayerController.controlsLock.value,
             );
           }
           return true;
 
         case LogicalKeyboardKey.enter:
-          if (onSkipSegment?.call() ?? false) {
+          // 桌面端Enter键保持原有逻辑（发送弹幕/跳过片头）
+          if (widget.onSkipSegment?.call() ?? false) {
             return true;
           }
-          onSendDanmaku();
+          widget.onSendDanmaku();
           return true;
       }
 
-      if (!plPlayerController.isLive) {
+      if (!widget.plPlayerController.isLive) {
         switch (key) {
           case LogicalKeyboardKey.arrowLeft:
             if (hasPlayer) {
-              plPlayerController.onBackward(
-                plPlayerController.fastForBackwardDuration,
+              widget.plPlayerController.onBackward(
+                widget.plPlayerController.fastForBackwardDuration,
               );
             }
             return true;
@@ -248,25 +279,25 @@ class PlayerFocus extends StatelessWidget {
             if (HardwareKeyboard.instance.isMetaPressed) {
               return true;
             }
-            introController?.actionCoinVideo();
+            widget.introController?.actionCoinVideo();
             return true;
 
           case LogicalKeyboardKey.keyE:
-            introController?.actionFavVideo(isQuick: true);
+            widget.introController?.actionFavVideo(isQuick: true);
             return true;
 
           case LogicalKeyboardKey.keyT || LogicalKeyboardKey.keyV:
-            introController?.viewLater();
+            widget.introController?.viewLater();
             return true;
 
           case LogicalKeyboardKey.keyG:
-            if (introController case final UgcIntroController ugcCtr) {
+            if (widget.introController case final UgcIntroController ugcCtr) {
               ugcCtr.actionRelationMod(Get.context!);
             }
             return true;
 
           case LogicalKeyboardKey.bracketLeft:
-            if (introController case final introController?) {
+            if (widget.introController case final introController?) {
               if (!introController.prevPlay()) {
                 SmartDialog.showToast('已经是第一集了');
               }
@@ -274,7 +305,7 @@ class PlayerFocus extends StatelessWidget {
             return true;
 
           case LogicalKeyboardKey.bracketRight:
-            if (introController case final introController?) {
+            if (widget.introController case final introController?) {
               if (!introController.nextPlay()) {
                 SmartDialog.showToast('已经是最后一集了');
               }
