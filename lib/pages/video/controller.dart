@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math' show min;
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:PiliPlus/utils/storage_key.dart';
 
 import 'package:PiliPlus/common/style.dart';
@@ -1546,34 +1547,40 @@ class VideoDetailController extends GetxController
       ),
     );
 
-    Get.defaultDialog(
-      title: '编辑播放地址',
-      content: Column(
-        children: [
-          textField(
-            label: '视频地址',
-            initialValue: videoUrl,
-            onChanged: (value) => videoUrl = value,
+    showDialog(
+      context: Get.context!,
+      builder: (context) => AlertDialog(
+        title: const Text('编辑播放地址'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            textField(
+              label: '视频地址',
+              initialValue: videoUrl,
+              onChanged: (value) => videoUrl = value,
+            ),
+            const SizedBox(height: 16),
+            textField(
+              label: '音频地址',
+              initialValue: audioUrl,
+              onChanged: (value) => audioUrl = value,
+            ),
+          ],
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              this.videoUrl = videoUrl;
+              this.audioUrl = audioUrl;
+              Navigator.of(context).pop();
+            },
+            child: const Text('保存'),
           ),
-          const SizedBox(height: 16),
-          textField(
-            label: '音频地址',
-            initialValue: audioUrl,
-            onChanged: (value) => audioUrl = value,
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('取消'),
           ),
         ],
-      ),
-      confirm: ElevatedButton(
-        onPressed: () {
-          this.videoUrl = videoUrl;
-          this.audioUrl = audioUrl;
-          Get.back();
-        },
-        child: const Text('保存'),
-      ),
-      cancel: ElevatedButton(
-        onPressed: () => Get.back(),
-        child: const Text('取消'),
       ),
     );
   }
@@ -1582,3 +1589,4 @@ class VideoDetailController extends GetxController
   void onCast() {
     // 实现投屏功能
   }
+}
