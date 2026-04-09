@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:io' show exit, Platform;
+import 'dart:math' as math;
 
 import 'package:PiliPlus/pages/common/common_intro_controller.dart';
 import 'package:PiliPlus/pages/video/introduction/ugc/controller.dart';
@@ -37,8 +39,17 @@ class PlayerFocus extends StatefulWidget {
 }
 
 class _PlayerFocusState extends State<PlayerFocus> {
+  /// 遥控器上下键双击切换视频的定时器
+  Timer? _upDoublePressTimer;
+  Timer? _downDoublePressTimer;
+  static const _doublePressDuration = Duration(milliseconds: 300);
+  bool _upPressed = false;
+  bool _downPressed = false;
+
   @override
   void dispose() {
+    _upDoublePressTimer?.cancel();
+    _downDoublePressTimer?.cancel();
     super.dispose();
   }
 
@@ -71,21 +82,77 @@ class _PlayerFocusState extends State<PlayerFocus> {
   bool get isFullScreen => widget.plPlayerController.isFullScreen.value;
   bool get hasPlayer => widget.plPlayerController.videoPlayerController != null;
 
-  /// 处理遥控器上键 - 切换上一个视频
-  void _handleRemoteUp() {
-    if (widget.introController != null) {
-      if (!widget.introController!.prevPlay()) {
-        SmartDialog.showToast('已经是第一个了');
+  void _setVolume({required bool isIncrease}) {
+    final volume = isIncrease
+        ? math.min(
+            PlPlayerController.maxVolume,
+            widget.plPlayerController.volume.value + 0.1,
+          )
+        : math.max(0.0, widget.plPlayerController.volume.value - 0.1);
+    widget.plPlayerController.setVolume(volume);
+  }
+
+  void _updateVolume(KeyEvent event, {required bool isIncrease}) {
+    if (event is KeyDownEvent) {
+      if (hasPlayer) {
+        _setVolume(isIncrease: isIncrease);
+        widget.plPlayerController
+          ..longPressTimer?.cancel()
+          ..longPressTimer = Timer.periodic(
+            const Duration(milliseconds: 150),
+            (_) => _setVolume(isIncrease: isIncrease),
+          );
       }
+    } else if (event is KeyUpEvent) {
+      widget.plPlayerController.cancelLongPressTimer();
     }
   }
 
-  /// 处理遥控器下键 - 切换下一个视频
-  void _handleRemoteDown() {
-    if (widget.introController != null) {
-      if (!widget.introController!.nextPlay()) {
-        SmartDialog.showToast('已经是最后一个了');
+  /// 处理遥控器上键
+  void _handleRemoteUp() {
+    if (_upPressed) {
+      // 双击上键 - 切换上一个视频
+      _upDoublePressTimer?.cancel();
+      _upPressed = false;
+      if (widget.introController != null) {
+        if (!widget.introController!.prevPlay()) {
+          SmartDialog.showToast('已经是第一个了');
+        }
       }
+    } else {
+      _upPressed = true;
+      _upDoublePressTimer?.cancel();
+      _upDoublePressTimer = Timer(_doublePressDuration, () {
+        _upPressed = false;
+        // 单击上键 - 增加音量
+        if (hasPlayer) {
+          _setVolume(isIncrease: true);
+        }
+      });
+    }
+  }
+
+  /// 处理遥控器下键
+  void _handleRemoteDown() {
+    if (_downPressed) {
+      // 双击下键 - 切换下一个视频
+      _downDoublePressTimer?.cancel();
+      _downPressed = false;
+      if (widget.introController != null) {
+        if (!widget.introController!.nextPlay()) {
+          SmartDialog.showToast('已经是最后一个了');
+        }
+      }
+    } else {
+      _downPressed = true;
+      _downDoublePressTimer?.cancel();
+      _downDoublePressTimer = Timer(_doublePressDuration, () {
+        _downPressed = false;
+        // 单击下键 - 减小音量
+        if (hasPlayer) {
+          _setVolume(isIncrease: false);
+        }
+      });
     }
   }
 
@@ -124,7 +191,7 @@ class _PlayerFocusState extends State<PlayerFocus> {
 
     final isArrowUp = key == LogicalKeyboardKey.arrowUp;
     if (isArrowUp || key == LogicalKeyboardKey.arrowDown) {
-      // 上键切换上一个视频，下键切换下一个视频
+      // 上下键：单击调节音量，双击切换视频
       if (event is KeyDownEvent) {
         if (isArrowUp) {
           _handleRemoteUp();
