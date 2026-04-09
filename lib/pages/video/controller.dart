@@ -281,62 +281,6 @@ class VideoDetailController extends GetxController
     }
   }
 
-  /// 保存当前视频信息用于下次启动时自动播放
-  void saveLastVideoInfo() {
-    if (!Pref.enableSaveLastData) return;
-    try {
-      final videoBox = GStorage.video;
-      videoBox.put(LastVideoKey.lastVideoBvid, bvid);
-      videoBox.put(LastVideoKey.lastVideoCid, cid.value);
-      videoBox.put(LastVideoKey.lastVideoAid, aid);
-      videoBox.put(LastVideoKey.lastVideoBusiness, videoType.name);
-
-      // 获取标题和封面
-      String? title;
-      String? cover;
-      int? pageIndex;
-
-      if (isUgc) {
-        try {
-          final introCtr = Get.find<UgcIntroController>(tag: heroTag);
-          title = introCtr.videoDetail.value.title;
-          cover = introCtr.videoDetail.value.pic;
-          // 获取当前分P索引
-          if (introCtr.currentPageIndex < introCtr.pages.length) {
-            pageIndex = introCtr.currentPageIndex;
-          }
-        } catch (_) {}
-      } else {
-        try {
-          final introCtr = Get.find<PgcIntroController>(tag: heroTag);
-          title = introCtr.videoDetail.value.title;
-          cover = introCtr.videoDetail.value.cover;
-        } catch (_) {}
-        // PGC视频保存epid
-        if (epId != null) {
-          videoBox.put(LastVideoKey.lastVideoEpid, epId);
-        }
-      }
-
-      if (title != null) {
-        videoBox.put(LastVideoKey.lastVideoTitle, title);
-      }
-      if (cover != null) {
-        videoBox.put(LastVideoKey.lastVideoCover, cover);
-      }
-      if (pageIndex != null) {
-        videoBox.put(LastVideoKey.lastVideoPage, pageIndex);
-      }
-
-      // 保存当前播放进度
-      if (playedTime != null) {
-        videoBox.put(LastVideoKey.lastVideoTimestamp, playedTime!.inMilliseconds);
-      }
-    } catch (_) {
-      // 忽略保存错误，不影响正常播放
-    }
-  }
-
   void initFileSource(BiliDownloadEntryInfo entry, {bool isInit = true}) {
     this.entry = entry;
     firstVideo = VideoItem(
