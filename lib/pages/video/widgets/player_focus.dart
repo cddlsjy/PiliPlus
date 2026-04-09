@@ -1,4 +1,3 @@
-import 'dart:async' show Timer;
 import 'dart:io' show exit, Platform;
 
 import 'package:PiliPlus/pages/common/common_intro_controller.dart';
@@ -50,7 +49,8 @@ class _PlayerFocusState extends State<PlayerFocus> {
         logicalKey == LogicalKeyboardKey.arrowUp ||
         logicalKey == LogicalKeyboardKey.arrowDown ||
         logicalKey == LogicalKeyboardKey.enter ||
-        logicalKey == LogicalKeyboardKey.gameButtonA;
+        logicalKey == LogicalKeyboardKey.gameButtonA ||
+        logicalKey == LogicalKeyboardKey.ok;
   }
 
   @override
@@ -94,7 +94,7 @@ class _PlayerFocusState extends State<PlayerFocus> {
     if (hasPlayer) {
       widget.plPlayerController.onDoubleTapCenter();
       SmartDialog.showToast(
-        widget.plPlayerController.playerStatus.value.isPlaying ? '已暂停' : '已播放'
+        widget.plPlayerController.playerStatus.isPlaying ? '已暂停' : '已播放'
       );
     }
   }
@@ -137,7 +137,8 @@ class _PlayerFocusState extends State<PlayerFocus> {
 
     // 遥控器OK键处理 - 暂停/恢复播放
     if (key == LogicalKeyboardKey.enter ||
-        key == LogicalKeyboardKey.gameButtonA) {
+        key == LogicalKeyboardKey.gameButtonA ||
+        key == LogicalKeyboardKey.ok) {
       if (event is KeyDownEvent) {
         _handleRemoteOk();
       }
