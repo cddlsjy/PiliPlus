@@ -32,6 +32,7 @@ abstract final class SettingBoxKey {
   static const String enableVerticalExpand = 'enableVerticalExpand',
       feedBackEnable = 'feedBackEnable',
       enableLongShowControl = 'enableLongShowControl',
+      allowRotateScreen = 'allowRotateScreen',
       horizontalScreen = 'horizontalScreen',
       CDNService = 'CDNService',
       disableAudioCDN = 'disableAudioCDN',
@@ -148,8 +149,7 @@ abstract final class SettingBoxKey {
       followOrderType = 'followOrderType',
       enableImgMenu = 'enableImgMenu',
       showDynDispute = 'showDynDispute',
-      touchSlopH = 'touchSlopH',
-      floatingNavBar = 'floatingNavBar';
+      touchSlopH = 'touchSlopH';
 
   static const String minimizeOnExit = 'minimizeOnExit',
       windowSize = 'windowSize',
@@ -248,4 +248,17 @@ abstract final class VideoBoxKey {
       longPressSpeedDefault = 'longPressSpeedDefault',
       speedsList = 'speedsList',
       cacheVideoFit = 'cacheVideoFit';
+}
+
+abstract final class LastVideoKey {
+  // 最后观看的视频信息
+  static const String lastVideoBvid = 'lastVideoBvid';
+  static const String lastVideoCid = 'lastVideoCid';
+  static const String lastVideoAid = 'lastVideoAid';
+  static const String lastVideoTitle = 'lastVideoTitle';
+  static const String lastVideoCover = 'lastVideoCover';
+  static const String lastVideoBusiness = 'lastVideoBusiness';
+  static const String lastVideoEpid = 'lastVideoEpid';
+  static const String lastVideoPage = 'lastVideoPage';
+  static const String lastVideoTimestamp = 'lastVideoTimestamp';
 }
