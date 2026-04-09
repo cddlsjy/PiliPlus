@@ -3,12 +3,6 @@ import 'dart:io';
 import 'dart:math' show min;
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-
-
-
-import 'package:PiliPlus/utils/storage_key.dart';
-
 import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/pair.dart';
 import 'package:PiliPlus/common/widgets/progress_bar/segment_progress_bar.dart';
@@ -54,7 +48,6 @@ import 'package:PiliPlus/pages/video/post_panel/view.dart';
 import 'package:PiliPlus/pages/video/send_danmaku/view.dart';
 import 'package:PiliPlus/pages/video/widgets/header_control.dart';
 import 'package:PiliPlus/plugin/pl_player/controller.dart';
-import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/plugin/pl_player/models/data_source.dart';
 import 'package:PiliPlus/plugin/pl_player/models/heart_beat_type.dart';
 import 'package:PiliPlus/plugin/pl_player/models/play_status.dart';
@@ -82,19 +75,6 @@ import 'package:get/get.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:media_kit/media_kit.dart' hide Subtitle;
 import 'package:path/path.dart' as path;
-
-// 临时定义LastVideoKey类以解决编译错误
-class LastVideoKey {
-  static const String lastVideoBvid = 'lastVideoBvid';
-  static const String lastVideoCid = 'lastVideoCid';
-  static const String lastVideoAid = 'lastVideoAid';
-  static const String lastVideoTitle = 'lastVideoTitle';
-  static const String lastVideoCover = 'lastVideoCover';
-  static const String lastVideoBusiness = 'lastVideoBusiness';
-  static const String lastVideoEpid = 'lastVideoEpid';
-  static const String lastVideoPage = 'lastVideoPage';
-  static const String lastVideoTimestamp = 'lastVideoTimestamp';
-}
 
 class VideoDetailController extends GetxController
     with GetTickerProviderStateMixin, BlockMixin {
@@ -322,17 +302,15 @@ class VideoDetailController extends GetxController
           title = introCtr.videoDetail.value.title;
           cover = introCtr.videoDetail.value.pic;
           // 获取当前分P索引
-          final pages = introCtr.videoDetail.value.pages;
-          if (pages != null && pages.isNotEmpty) {
-            pageIndex = pages.indexWhere((page) => page.cid == cid.value);
-            if (pageIndex == -1) pageIndex = 0;
+          if (introCtr.currentPageIndex < introCtr.pages.length) {
+            pageIndex = introCtr.currentPageIndex;
           }
         } catch (_) {}
       } else {
         try {
           final introCtr = Get.find<PgcIntroController>(tag: heroTag);
           title = introCtr.videoDetail.value.title;
-          cover = introCtr.videoDetail.value.pic;
+          cover = introCtr.videoDetail.value.cover;
         } catch (_) {}
         // PGC视频保存epid
         if (epId != null) {
@@ -1272,7 +1250,49 @@ class VideoDetailController extends GetxController
     }
   }
 
+  /// 保存最后观看的视频信息，用于启动时自动播放
+  void saveLastVideoInfo() {
+    try {
+      String? title;
+      String? pic;
+      int? pageIndex;
 
+      // 获取标题和封面
+      if (isUgc) {
+        final ugcIntro = Get.find<UgcIntroController>(tag: heroTag);
+        title = ugcIntro.videoDetail.value.title;
+        pic = ugcIntro.videoDetail.value.pic;
+        // 计算当前分P索引
+        final pages = ugcIntro.videoDetail.value.pages;
+        if (pages != null) {
+          pageIndex = pages.indexWhere((p) => p.cid == cid.value);
+        }
+      } else {
+        final pgcIntro = Get.find<PgcIntroController>(tag: heroTag);
+        title = pgcIntro.videoDetail.value.title;
+        pic = pgcIntro.videoDetail.value.cover;
+        // 计算当前剧集索引
+        final episodes = pgcIntro.pgcItem.episodes;
+        if (episodes != null) {
+          pageIndex = episodes.indexWhere((e) => e.cid == cid.value);
+        }
+      }
+
+      // 保存到本地存储
+      final videoBox = GStorage.video;
+      videoBox.put(LastVideoKey.lastVideoBvid, bvid);
+      videoBox.put(LastVideoKey.lastVideoCid, cid.value);
+      videoBox.put(LastVideoKey.lastVideoAid, aid);
+      videoBox.put(LastVideoKey.lastVideoTitle, title ?? '');
+      videoBox.put(LastVideoKey.lastVideoCover, pic ?? '');
+      videoBox.put(LastVideoKey.lastVideoBusiness, videoType.name);
+      videoBox.put(LastVideoKey.lastVideoEpid, epId);
+      videoBox.put(LastVideoKey.lastVideoPage, pageIndex ?? 0);
+      videoBox.put(LastVideoKey.lastVideoTimestamp, DateTime.now().millisecondsSinceEpoch);
+    } catch (_) {
+      // 忽略错误，不影响正常播放
+    }
+  }
 
   @override
   void onClose() {
@@ -1519,8 +1539,8 @@ class VideoDetailController extends GetxController
         builder: (context) {
           final maxChildSize =
               PlatformUtils.isMobile && !context.mediaQuerySize.isPortrait
-                  ? 1.0
-                  : 0.7;
+              ? 1.0
+              : 0.7;
           return DraggableScrollableSheet(
             snap: true,
             expand: false,
@@ -1555,54 +1575,92 @@ class VideoDetailController extends GetxController
     }) => TextFormField(
       minLines: 1,
       maxLines: 3,
-      initialValue: initialValue,
       onChanged: onChanged,
+      initialValue: initialValue,
       decoration: InputDecoration(
-        labelText: label,
+        label: Text(label),
         border: const OutlineInputBorder(),
       ),
     );
-
     showDialog(
       context: Get.context!,
       builder: (context) => AlertDialog(
-        title: const Text('编辑播放地址'),
+        constraints: Style.dialogFixedConstraints,
+        title: const Text('播放地址'),
         content: Column(
+          spacing: 20,
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             textField(
-              label: '视频地址',
+              label: 'Video Url',
               initialValue: videoUrl,
               onChanged: (value) => videoUrl = value,
             ),
-            const SizedBox(height: 16),
             textField(
-              label: '音频地址',
+              label: 'Audio Url',
               initialValue: audioUrl,
               onChanged: (value) => audioUrl = value,
             ),
           ],
         ),
         actions: [
-          ElevatedButton(
+          TextButton(
             onPressed: () {
+              Get.back();
               this.videoUrl = videoUrl;
               this.audioUrl = audioUrl;
-              Navigator.of(context).pop();
+              playerInit();
             },
-            child: const Text('保存'),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('取消'),
+            child: const Text('确定'),
           ),
         ],
       ),
     );
   }
 
-  // 添加onCast方法
-  void onCast() {
-    // 实现投屏功能
+  @pragma('vm:notify-debugger-on-exception')
+  Future<void> onCast() async {
+    SmartDialog.showLoading();
+    final res = await VideoHttp.tvPlayUrl(
+      cid: cid.value,
+      objectId: epId ?? aid,
+      playurlType: epId != null ? 2 : 1,
+      qn: currentVideoQa.value?.code,
+    );
+    SmartDialog.dismiss();
+    if (res case Success(:final response)) {
+      final first = response.durl?.firstOrNull;
+      if (first == null || first.playUrls.isEmpty) {
+        SmartDialog.showToast('不支持投屏');
+        return;
+      }
+      final url = VideoUtils.getCdnUrl(first.playUrls);
+
+      String? title;
+      try {
+        if (isUgc) {
+          title = Get.find<UgcIntroController>(
+            tag: heroTag,
+          ).videoDetail.value.title;
+        } else {
+          title = Get.find<PgcIntroController>(
+            tag: heroTag,
+          ).videoDetail.value.title;
+        }
+      } catch (_) {}
+      if (kDebugMode) {
+        debugPrint(title);
+      }
+      Get.toNamed(
+        '/dlna',
+        parameters: {
+          'url': url,
+          'title': ?title,
+        },
+      );
+    } else {
+      res.toast();
+    }
   }
 }
