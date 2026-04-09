@@ -11,12 +11,14 @@ import 'package:PiliPlus/pages/dynamics/controller.dart';
 import 'package:PiliPlus/pages/home/controller.dart';
 import 'package:PiliPlus/pages/mine/view.dart';
 import 'package:PiliPlus/services/account_service.dart';
+import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:PiliPlus/utils/extension/get_ext.dart';
 import 'package:PiliPlus/utils/extension/iterable_ext.dart';
 import 'package:PiliPlus/utils/feed_back.dart';
 import 'package:PiliPlus/utils/storage.dart';
 import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
+import 'package:PiliPlus/models/common/video/video_type.dart';
 import 'package:PiliPlus/utils/update.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_throttle.dart';
@@ -55,7 +57,6 @@ class MainController extends GetxController
   late int lastCheckUnreadAt = 0;
 
   final enableMYBar = Pref.enableMYBar;
-  final floatingNavBar = Pref.floatingNavBar;
   final useSideBar = Pref.useSideBar;
   final mainTabBarView = Pref.mainTabBarView;
   late final optTabletNav = Pref.optTabletNav;
@@ -77,6 +78,13 @@ class MainController extends GetxController
     }
 
     setNavBarConfig();
+
+    // 检查是否启用自动播放最后视频，并检查是否是启动后的首次检查
+    if (Pref.enableSaveLastData) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _checkAndAutoPlayLastVideo();
+      });
+    }
 
     controller = mainTabBarView
         ? TabController(
@@ -233,6 +241,47 @@ class MainController extends GetxController
     }
     this.navigationBars = navigationBars;
     selectedIndex.value = Pref.defaultHomePageIndex;
+  }
+
+  /// 检查并自动播放最后观看的视频
+  Future<void> _checkAndAutoPlayLastVideo() async {
+    try {
+      final videoBox = GStorage.video;
+      final lastBvid = videoBox.get(LastVideoKey.lastVideoBvid);
+      final lastCid = videoBox.get(LastVideoKey.lastVideoCid) as int?;
+      final lastTitle = videoBox.get(LastVideoKey.lastVideoTitle) as String? ?? '';
+      final lastCover = videoBox.get(LastVideoKey.lastVideoCover) as String? ?? '';
+      final lastBusiness = videoBox.get(LastVideoKey.lastVideoBusiness) as String?;
+      final lastEpid = videoBox.get(LastVideoKey.lastVideoEpid) as int?;
+      final lastPage = videoBox.get(LastVideoKey.lastVideoPage) as int?;
+      final lastTimestamp = videoBox.get(LastVideoKey.lastVideoTimestamp) as int?;
+
+      if (lastBvid == null || lastCid == null) {
+        return;
+      }
+
+      // 解析视频类型
+      VideoType videoType = VideoType.ugc;
+      if (lastBusiness != null) {
+        videoType = VideoType.values.firstWhere(
+          (e) => e.name == lastBusiness,
+          orElse: () => VideoType.ugc,
+        );
+      }
+
+      // 使用PageUtils导航到视频页面
+      await PageUtils.toVideoPage(
+        videoType: videoType,
+        bvid: lastBvid,
+        cid: lastCid,
+        epId: lastEpid,
+        cover: lastCover,
+        title: lastTitle,
+        progress: null, // 不自动跳转进度，让用户从上次位置继续
+      );
+    } catch (_) {
+      // 忽略错误，不影响正常启动
+    }
   }
 
   void checkDefaultSearch([bool shouldCheck = false]) {
