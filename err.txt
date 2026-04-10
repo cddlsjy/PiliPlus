@@ -1,0 +1,694 @@
+2026-04-08T07:08:41.2555343Z Current runner version: '2.333.1'
+2026-04-08T07:08:41.2580629Z ##[group]Runner Image Provisioner
+2026-04-08T07:08:41.2581651Z Hosted Compute Agent
+2026-04-08T07:08:41.2582474Z Version: 20260213.493
+2026-04-08T07:08:41.2583059Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+2026-04-08T07:08:41.2583782Z Build Date: 2026-02-13T00:28:41Z
+2026-04-08T07:08:41.2584508Z Worker ID: {e8cb3953-54c4-45c1-ae74-194f04ec0b67}
+2026-04-08T07:08:41.2585175Z Azure Region: northcentralus
+2026-04-08T07:08:41.2585802Z ##[endgroup]
+2026-04-08T07:08:41.2587195Z ##[group]Operating System
+2026-04-08T07:08:41.2587814Z Ubuntu
+2026-04-08T07:08:41.2588256Z 24.04.4
+2026-04-08T07:08:41.2588761Z LTS
+2026-04-08T07:08:41.2589212Z ##[endgroup]
+2026-04-08T07:08:41.2589777Z ##[group]Runner Image
+2026-04-08T07:08:41.2590387Z Image: ubuntu-24.04
+2026-04-08T07:08:41.2590874Z Version: 20260329.72.1
+2026-04-08T07:08:41.2592323Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260329.72/images/ubuntu/Ubuntu2404-Readme.md
+2026-04-08T07:08:41.2593824Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260329.72
+2026-04-08T07:08:41.2594784Z ##[endgroup]
+2026-04-08T07:08:41.2597427Z ##[group]GITHUB_TOKEN Permissions
+2026-04-08T07:08:41.2599728Z Actions: write
+2026-04-08T07:08:41.2600368Z ArtifactMetadata: write
+2026-04-08T07:08:41.2600915Z Attestations: write
+2026-04-08T07:08:41.2601764Z Checks: write
+2026-04-08T07:08:41.2602631Z Contents: write
+2026-04-08T07:08:41.2603141Z Deployments: write
+2026-04-08T07:08:41.2603679Z Discussions: write
+2026-04-08T07:08:41.2604141Z Issues: write
+2026-04-08T07:08:41.2604728Z Metadata: read
+2026-04-08T07:08:41.2605228Z Models: read
+2026-04-08T07:08:41.2605741Z Packages: write
+2026-04-08T07:08:41.2606285Z Pages: write
+2026-04-08T07:08:41.2606892Z PullRequests: write
+2026-04-08T07:08:41.2607426Z RepositoryProjects: write
+2026-04-08T07:08:41.2608032Z SecurityEvents: write
+2026-04-08T07:08:41.2608619Z Statuses: write
+2026-04-08T07:08:41.2609115Z ##[endgroup]
+2026-04-08T07:08:41.2611320Z Secret source: Actions
+2026-04-08T07:08:41.2612507Z Prepare workflow directory
+2026-04-08T07:08:41.2941142Z Prepare all required actions
+2026-04-08T07:08:41.2980457Z Getting action download info
+2026-04-08T07:08:41.7519397Z Download action repository 'actions/checkout@v6' (SHA:de0fac2e4500dabe0009e67214ff5f5447ce83dd)
+2026-04-08T07:08:41.8522580Z Download action repository 'actions/setup-java@v5' (SHA:be666c2fcd27ec809703dec50e508c2fdc7f6654)
+2026-04-08T07:08:42.4323531Z Download action repository 'subosito/flutter-action@v2' (SHA:1a449444c387b1966244ae4d4f8c696479add0b2)
+2026-04-08T07:08:42.7048899Z Download action repository 'softprops/action-gh-release@v2' (SHA:153bb8e04406b158c6c84fc1615b65b24149a1fe)
+2026-04-08T07:08:43.2603105Z Download action repository 'actions/upload-artifact@v7' (SHA:bbbca2ddaa5d8feaa63e36b76fdaad77386f024f)
+2026-04-08T07:08:43.7446705Z Getting action download info
+2026-04-08T07:08:43.8770102Z Download action repository 'actions/cache@v5' (SHA:668228422ae6a00e4ad889ee87cd7109ec5666a7)
+2026-04-08T07:08:44.0408408Z Complete job name: Release Android
+2026-04-08T07:08:44.1165238Z ##[group]Run actions/checkout@v6
+2026-04-08T07:08:44.1165816Z with:
+2026-04-08T07:08:44.1166052Z   fetch-depth: 0
+2026-04-08T07:08:44.1166336Z   repository: cddlsjy/PiliPlus
+2026-04-08T07:08:44.1166810Z   token: ***
+2026-04-08T07:08:44.1167045Z   ssh-strict: true
+2026-04-08T07:08:44.1167293Z   ssh-user: git
+2026-04-08T07:08:44.1167551Z   persist-credentials: true
+2026-04-08T07:08:44.1167823Z   clean: true
+2026-04-08T07:08:44.1168076Z   sparse-checkout-cone-mode: true
+2026-04-08T07:08:44.1168364Z   fetch-tags: false
+2026-04-08T07:08:44.1168607Z   show-progress: true
+2026-04-08T07:08:44.1168843Z   lfs: false
+2026-04-08T07:08:44.1169051Z   submodules: false
+2026-04-08T07:08:44.1169306Z   set-safe-directory: true
+2026-04-08T07:08:44.1169726Z ##[endgroup]
+2026-04-08T07:08:44.2115064Z Syncing repository: cddlsjy/PiliPlus
+2026-04-08T07:08:44.2116481Z ##[group]Getting Git version info
+2026-04-08T07:08:44.2117284Z Working directory is '/home/runner/work/PiliPlus/PiliPlus'
+2026-04-08T07:08:44.2118033Z [command]/usr/bin/git version
+2026-04-08T07:08:44.2133795Z git version 2.53.0
+2026-04-08T07:08:44.2154444Z ##[endgroup]
+2026-04-08T07:08:44.2167922Z Temporarily overriding HOME='/home/runner/work/_temp/5fda28fc-0fb1-4361-96b4-3c561fd9528a' before making global git config changes
+2026-04-08T07:08:44.2169148Z Adding repository directory to the temporary git global config as a safe directory
+2026-04-08T07:08:44.2172633Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PiliPlus/PiliPlus
+2026-04-08T07:08:44.2206374Z Deleting the contents of '/home/runner/work/PiliPlus/PiliPlus'
+2026-04-08T07:08:44.2210044Z ##[group]Initializing the repository
+2026-04-08T07:08:44.2214468Z [command]/usr/bin/git init /home/runner/work/PiliPlus/PiliPlus
+2026-04-08T07:08:44.2305151Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-04-08T07:08:44.2307922Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-04-08T07:08:44.2308914Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-04-08T07:08:44.2309548Z hint: call:
+2026-04-08T07:08:44.2309896Z hint:
+2026-04-08T07:08:44.2310383Z hint: 	git config --global init.defaultBranch <name>
+2026-04-08T07:08:44.2310905Z hint:
+2026-04-08T07:08:44.2311654Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-04-08T07:08:44.2313382Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-04-08T07:08:44.2315709Z hint:
+2026-04-08T07:08:44.2316109Z hint: 	git branch -m <name>
+2026-04-08T07:08:44.2316604Z hint:
+2026-04-08T07:08:44.2317149Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-04-08T07:08:44.2318050Z Initialized empty Git repository in /home/runner/work/PiliPlus/PiliPlus/.git/
+2026-04-08T07:08:44.2319446Z [command]/usr/bin/git remote add origin https://github.com/cddlsjy/PiliPlus
+2026-04-08T07:08:44.2386082Z ##[endgroup]
+2026-04-08T07:08:44.2386616Z ##[group]Disabling automatic garbage collection
+2026-04-08T07:08:44.2390077Z [command]/usr/bin/git config --local gc.auto 0
+2026-04-08T07:08:44.2418886Z ##[endgroup]
+2026-04-08T07:08:44.2419324Z ##[group]Setting up auth
+2026-04-08T07:08:44.2420374Z Removing SSH command configuration
+2026-04-08T07:08:44.2426358Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-04-08T07:08:44.2459022Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-04-08T07:08:44.2769596Z Removing HTTP extra header
+2026-04-08T07:08:44.2775848Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-04-08T07:08:44.2811341Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-04-08T07:08:44.3056638Z Removing includeIf entries pointing to credentials config files
+2026-04-08T07:08:44.3063160Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-04-08T07:08:44.3100310Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-04-08T07:08:44.3345654Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-04-08T07:08:44.3384878Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PiliPlus/PiliPlus/.git.path /home/runner/work/_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:08:44.3416161Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/PiliPlus/PiliPlus/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:08:44.3446987Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:08:44.3479288Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:08:44.3507223Z ##[endgroup]
+2026-04-08T07:08:44.3507712Z ##[group]Fetching the repository
+2026-04-08T07:08:44.3518486Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-04-08T07:08:47.2302983Z From https://github.com/cddlsjy/PiliPlus
+2026-04-08T07:08:47.2303635Z  * [new branch]          dev           -> origin/dev
+2026-04-08T07:08:47.2304160Z  * [new branch]          main          -> origin/main
+2026-04-08T07:08:47.2307028Z  * [new branch]          master        -> origin/master
+2026-04-08T07:08:47.2308542Z  * [new tag]             1.1.2         -> 1.1.2
+2026-04-08T07:08:47.2308996Z  * [new tag]             1.1.2.1       -> 1.1.2.1
+2026-04-08T07:08:47.2309435Z  * [new tag]             1.1.2.2       -> 1.1.2.2
+2026-04-08T07:08:47.2309824Z  * [new tag]             1.1.2.3       -> 1.1.2.3
+2026-04-08T07:08:47.2310162Z  * [new tag]             1.1.2.4       -> 1.1.2.4
+2026-04-08T07:08:47.2310520Z  * [new tag]             1.1.2.5       -> 1.1.2.5
+2026-04-08T07:08:47.2310857Z  * [new tag]             1.1.2.6       -> 1.1.2.6
+2026-04-08T07:08:47.2311202Z  * [new tag]             1.1.2.7       -> 1.1.2.7
+2026-04-08T07:08:47.2311783Z  * [new tag]             1.1.3         -> 1.1.3
+2026-04-08T07:08:47.2312160Z  * [new tag]             1.1.3.1       -> 1.1.3.1
+2026-04-08T07:08:47.2312644Z  * [new tag]             1.1.3.10      -> 1.1.3.10
+2026-04-08T07:08:47.2313118Z  * [new tag]             1.1.3.11      -> 1.1.3.11
+2026-04-08T07:08:47.2313530Z  * [new tag]             1.1.3.12      -> 1.1.3.12
+2026-04-08T07:08:47.2314049Z  * [new tag]             1.1.3.13      -> 1.1.3.13
+2026-04-08T07:08:47.2314458Z  * [new tag]             1.1.3.14      -> 1.1.3.14
+2026-04-08T07:08:47.2314842Z  * [new tag]             1.1.3.15      -> 1.1.3.15
+2026-04-08T07:08:47.2315257Z  * [new tag]             1.1.3.16      -> 1.1.3.16
+2026-04-08T07:08:47.2315649Z  * [new tag]             1.1.3.17      -> 1.1.3.17
+2026-04-08T07:08:47.2316035Z  * [new tag]             1.1.3.18      -> 1.1.3.18
+2026-04-08T07:08:47.2316412Z  * [new tag]             1.1.3.19      -> 1.1.3.19
+2026-04-08T07:08:47.2316808Z  * [new tag]             1.1.3.2       -> 1.1.3.2
+2026-04-08T07:08:47.2317206Z  * [new tag]             1.1.3.20      -> 1.1.3.20
+2026-04-08T07:08:47.2317596Z  * [new tag]             1.1.3.21      -> 1.1.3.21
+2026-04-08T07:08:47.2317996Z  * [new tag]             1.1.3.22      -> 1.1.3.22
+2026-04-08T07:08:47.2318407Z  * [new tag]             1.1.3.23      -> 1.1.3.23
+2026-04-08T07:08:47.2318953Z  * [new tag]             1.1.3.24      -> 1.1.3.24
+2026-04-08T07:08:47.2319814Z  * [new tag]             1.1.3.25      -> 1.1.3.25
+2026-04-08T07:08:47.2320284Z  * [new tag]             1.1.3.26      -> 1.1.3.26
+2026-04-08T07:08:47.2320711Z  * [new tag]             1.1.3.27      -> 1.1.3.27
+2026-04-08T07:08:47.2321123Z  * [new tag]             1.1.3.28      -> 1.1.3.28
+2026-04-08T07:08:47.2321795Z  * [new tag]             1.1.3.29      -> 1.1.3.29
+2026-04-08T07:08:47.2322227Z  * [new tag]             1.1.3.3       -> 1.1.3.3
+2026-04-08T07:08:47.2322663Z  * [new tag]             1.1.3.30      -> 1.1.3.30
+2026-04-08T07:08:47.2323106Z  * [new tag]             1.1.3.31      -> 1.1.3.31
+2026-04-08T07:08:47.2323531Z  * [new tag]             1.1.3.32      -> 1.1.3.32
+2026-04-08T07:08:47.2323955Z  * [new tag]             1.1.3.33      -> 1.1.3.33
+2026-04-08T07:08:47.2324361Z  * [new tag]             1.1.3.34      -> 1.1.3.34
+2026-04-08T07:08:47.2324798Z  * [new tag]             1.1.3.35      -> 1.1.3.35
+2026-04-08T07:08:47.2325481Z  * [new tag]             1.1.3.36      -> 1.1.3.36
+2026-04-08T07:08:47.2325918Z  * [new tag]             1.1.3.37      -> 1.1.3.37
+2026-04-08T07:08:47.2326378Z  * [new tag]             1.1.3.37-fix  -> 1.1.3.37-fix
+2026-04-08T07:08:47.2326859Z  * [new tag]             1.1.3.37-fix2 -> 1.1.3.37-fix2
+2026-04-08T07:08:47.2327322Z  * [new tag]             1.1.3.38      -> 1.1.3.38
+2026-04-08T07:08:47.2327751Z  * [new tag]             1.1.3.39      -> 1.1.3.39
+2026-04-08T07:08:47.2328213Z  * [new tag]             1.1.3.39-fix  -> 1.1.3.39-fix
+2026-04-08T07:08:47.2328682Z  * [new tag]             1.1.3.39-fix2 -> 1.1.3.39-fix2
+2026-04-08T07:08:47.2329216Z  * [new tag]             1.1.3.39-fix3 -> 1.1.3.39-fix3
+2026-04-08T07:08:47.2329678Z  * [new tag]             1.1.3.4       -> 1.1.3.4
+2026-04-08T07:08:47.2330104Z  * [new tag]             1.1.3.40      -> 1.1.3.40
+2026-04-08T07:08:47.2330554Z  * [new tag]             1.1.3.40-fix  -> 1.1.3.40-fix
+2026-04-08T07:08:47.2331005Z  * [new tag]             1.1.3.5       -> 1.1.3.5
+2026-04-08T07:08:47.2331966Z  * [new tag]             1.1.3.6       -> 1.1.3.6
+2026-04-08T07:08:47.2332417Z  * [new tag]             1.1.3.7       -> 1.1.3.7
+2026-04-08T07:08:47.2332817Z  * [new tag]             1.1.3.8       -> 1.1.3.8
+2026-04-08T07:08:47.2333206Z  * [new tag]             1.1.3.9       -> 1.1.3.9
+2026-04-08T07:08:47.2333590Z  * [new tag]             1.1.4         -> 1.1.4
+2026-04-08T07:08:47.2334052Z  * [new tag]             1.1.4-pre     -> 1.1.4-pre
+2026-04-08T07:08:47.2334523Z  * [new tag]             1.1.4-pre2    -> 1.1.4-pre2
+2026-04-08T07:08:47.2335002Z  * [new tag]             1.1.4-pre3    -> 1.1.4-pre3
+2026-04-08T07:08:47.2335409Z  * [new tag]             1.1.4-pre4    -> 1.1.4-pre4
+2026-04-08T07:08:47.2335862Z  * [new tag]             1.1.4-pre5    -> 1.1.4-pre5
+2026-04-08T07:08:47.2336432Z  * [new tag]             1.1.4-pre6    -> 1.1.4-pre6
+2026-04-08T07:08:47.2336944Z  * [new tag]             1.1.4.1       -> 1.1.4.1
+2026-04-08T07:08:47.2337391Z  * [new tag]             1.1.4.10      -> 1.1.4.10
+2026-04-08T07:08:47.2337830Z  * [new tag]             1.1.4.11      -> 1.1.4.11
+2026-04-08T07:08:47.2338243Z  * [new tag]             1.1.4.12      -> 1.1.4.12
+2026-04-08T07:08:47.2338668Z  * [new tag]             1.1.4.13      -> 1.1.4.13
+2026-04-08T07:08:47.2339079Z  * [new tag]             1.1.4.14      -> 1.1.4.14
+2026-04-08T07:08:47.2339544Z  * [new tag]             1.1.4.15      -> 1.1.4.15
+2026-04-08T07:08:47.2339963Z  * [new tag]             1.1.4.16      -> 1.1.4.16
+2026-04-08T07:08:47.2340368Z  * [new tag]             1.1.4.17      -> 1.1.4.17
+2026-04-08T07:08:47.2340798Z  * [new tag]             1.1.4.2       -> 1.1.4.2
+2026-04-08T07:08:47.2341215Z  * [new tag]             1.1.4.3       -> 1.1.4.3
+2026-04-08T07:08:47.2341863Z  * [new tag]             1.1.4.4       -> 1.1.4.4
+2026-04-08T07:08:47.2342281Z  * [new tag]             1.1.4.5       -> 1.1.4.5
+2026-04-08T07:08:47.2342702Z  * [new tag]             1.1.4.6       -> 1.1.4.6
+2026-04-08T07:08:47.2343142Z  * [new tag]             1.1.4.7       -> 1.1.4.7
+2026-04-08T07:08:47.2343836Z  * [new tag]             1.1.4.8       -> 1.1.4.8
+2026-04-08T07:08:47.2344280Z  * [new tag]             1.1.5         -> 1.1.5
+2026-04-08T07:08:47.2344723Z  * [new tag]             1.1.5-pre     -> 1.1.5-pre
+2026-04-08T07:08:47.2345230Z  * [new tag]             1.1.5-pre2    -> 1.1.5-pre2
+2026-04-08T07:08:47.2345728Z  * [new tag]             1.1.5-pre3    -> 1.1.5-pre3
+2026-04-08T07:08:47.2346225Z  * [new tag]             1.1.5-pre4    -> 1.1.5-pre4
+2026-04-08T07:08:47.2346703Z  * [new tag]             1.1.5-pre5    -> 1.1.5-pre5
+2026-04-08T07:08:47.2347202Z  * [new tag]             1.1.5-pre6    -> 1.1.5-pre6
+2026-04-08T07:08:47.2347688Z  * [new tag]             1.1.5-pre7    -> 1.1.5-pre7
+2026-04-08T07:08:47.2348224Z  * [new tag]             1.1.5-pre8    -> 1.1.5-pre8
+2026-04-08T07:08:47.2348704Z  * [new tag]             1.1.5.1       -> 1.1.5.1
+2026-04-08T07:08:47.2349148Z  * [new tag]             1.1.5.2       -> 1.1.5.2
+2026-04-08T07:08:47.2349875Z  * [new tag]             1.1.5.3       -> 1.1.5.3
+2026-04-08T07:08:47.2350327Z  * [new tag]             1.1.5.4       -> 1.1.5.4
+2026-04-08T07:08:47.2350783Z  * [new tag]             1.1.5.5       -> 1.1.5.5
+2026-04-08T07:08:47.2351237Z  * [new tag]             1.1.5.6       -> 1.1.5.6
+2026-04-08T07:08:47.2352013Z  * [new tag]             1.1.5.7       -> 1.1.5.7
+2026-04-08T07:08:47.2352490Z  * [new tag]             1.1.6         -> 1.1.6
+2026-04-08T07:08:47.2352936Z  * [new tag]             2.0.0         -> 2.0.0
+2026-04-08T07:08:47.2353398Z  * [new tag]             2.0.0.1       -> 2.0.0.1
+2026-04-08T07:08:47.2353846Z  * [new tag]             2.0.1         -> 2.0.1
+2026-04-08T07:08:47.2354319Z  * [new tag]             2.0.1.1       -> 2.0.1.1
+2026-04-08T07:08:47.2354787Z  * [new tag]             release1      -> release1
+2026-04-08T07:08:47.2355303Z  * [new tag]             release10     -> release10
+2026-04-08T07:08:47.2355809Z  * [new tag]             release11     -> release11
+2026-04-08T07:08:47.2356318Z  * [new tag]             release12     -> release12
+2026-04-08T07:08:47.2356813Z  * [new tag]             release13     -> release13
+2026-04-08T07:08:47.2357302Z  * [new tag]             release14     -> release14
+2026-04-08T07:08:47.2357797Z  * [new tag]             release15     -> release15
+2026-04-08T07:08:47.2358282Z  * [new tag]             release16     -> release16
+2026-04-08T07:08:47.2358780Z  * [new tag]             release17     -> release17
+2026-04-08T07:08:47.2359272Z  * [new tag]             release18     -> release18
+2026-04-08T07:08:47.2359789Z  * [new tag]             release18-fix -> release18-fix
+2026-04-08T07:08:47.2360324Z  * [new tag]             release2      -> release2
+2026-04-08T07:08:47.2360838Z  * [new tag]             release3      -> release3
+2026-04-08T07:08:47.2361340Z  * [new tag]             release4      -> release4
+2026-04-08T07:08:47.2362504Z  * [new tag]             release5      -> release5
+2026-04-08T07:08:47.2363030Z  * [new tag]             release5-fix  -> release5-fix
+2026-04-08T07:08:47.2363563Z  * [new tag]             release6      -> release6
+2026-04-08T07:08:47.2364066Z  * [new tag]             release7      -> release7
+2026-04-08T07:08:47.2364563Z  * [new tag]             release8      -> release8
+2026-04-08T07:08:47.2365075Z  * [new tag]             release8-fix  -> release8-fix
+2026-04-08T07:08:47.2365595Z  * [new tag]             release9      -> release9
+2026-04-08T07:08:47.2449128Z [command]/usr/bin/git branch --list --remote origin/main
+2026-04-08T07:08:47.2485675Z   origin/main
+2026-04-08T07:08:47.2493641Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-04-08T07:08:47.2516018Z e20b01901f006a7f5aac9edaece317a3319e4361
+2026-04-08T07:08:47.2520219Z ##[endgroup]
+2026-04-08T07:08:47.2520719Z ##[group]Determining the checkout info
+2026-04-08T07:08:47.2522577Z ##[endgroup]
+2026-04-08T07:08:47.2527602Z [command]/usr/bin/git sparse-checkout disable
+2026-04-08T07:08:47.2566602Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-04-08T07:08:47.2594541Z ##[group]Checking out the ref
+2026-04-08T07:08:47.2598562Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-04-08T07:08:47.4469846Z Switched to a new branch 'main'
+2026-04-08T07:08:47.4472226Z branch 'main' set up to track 'origin/main'.
+2026-04-08T07:08:47.4496186Z ##[endgroup]
+2026-04-08T07:08:47.4540915Z [command]/usr/bin/git log -1 --format=%H
+2026-04-08T07:08:47.4568450Z e20b01901f006a7f5aac9edaece317a3319e4361
+2026-04-08T07:08:47.4827214Z ##[group]Run actions/setup-java@v5
+2026-04-08T07:08:47.4827472Z with:
+2026-04-08T07:08:47.4827650Z   distribution: zulu
+2026-04-08T07:08:47.4827853Z   java-version: 17
+2026-04-08T07:08:47.4828033Z   cache: gradle
+2026-04-08T07:08:47.4828374Z   cache-dependency-path: android/*.gradle*
+android/**/gradle-wrapper.properties
+
+2026-04-08T07:08:47.4828756Z   java-package: jdk
+2026-04-08T07:08:47.4828951Z   check-latest: false
+2026-04-08T07:08:47.4829140Z   server-id: github
+2026-04-08T07:08:47.4829518Z   server-username: GITHUB_ACTOR
+2026-04-08T07:08:47.4829752Z   server-password: GITHUB_TOKEN
+2026-04-08T07:08:47.4829987Z   overwrite-settings: true
+2026-04-08T07:08:47.4830197Z   job-status: success
+2026-04-08T07:08:47.4830493Z   token: ***
+2026-04-08T07:08:47.4830685Z ##[endgroup]
+2026-04-08T07:08:47.6261236Z ##[group]Installed distributions
+2026-04-08T07:08:47.6285844Z Trying to resolve the latest version from remote
+2026-04-08T07:08:47.6732370Z Resolved latest version as 17.0.18+8
+2026-04-08T07:08:47.6734246Z Trying to download...
+2026-04-08T07:08:47.6735562Z Downloading Java 17.0.18+8 (Zulu) from https://cdn.azul.com/zulu/bin/zulu17.64.17-ca-crac-jdk17.0.18-linux_x64.tar.gz ...
+2026-04-08T07:08:50.0345377Z Extracting Java archive...
+2026-04-08T07:08:50.0460653Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/a4784c56-7273-4108-a735-af728b4dd9d8 -f /home/runner/work/_temp/7072bb06-44a2-4e25-bb88-9d4967e218e8
+2026-04-08T07:08:52.7848528Z Java 17.0.18+8 was downloaded
+2026-04-08T07:08:52.7848819Z Setting Java 17.0.18+8 as the default
+2026-04-08T07:08:52.7859042Z Creating toolchains.xml for JDK version 17 from zulu
+2026-04-08T07:08:52.7928043Z Writing to /home/runner/.m2/toolchains.xml
+2026-04-08T07:08:52.7929960Z 
+2026-04-08T07:08:52.7930225Z Java configuration:
+2026-04-08T07:08:52.7930594Z   Distribution: zulu
+2026-04-08T07:08:52.7930899Z   Version: 17.0.18+8
+2026-04-08T07:08:52.7931303Z   Path: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:08:52.7931890Z 
+2026-04-08T07:08:52.7932326Z ##[endgroup]
+2026-04-08T07:08:52.7949175Z Creating settings.xml with server-id: github
+2026-04-08T07:08:52.7949664Z Writing to /home/runner/.m2/settings.xml
+2026-04-08T07:08:53.0675280Z Cache hit for: setup-java-Linux-x64-gradle-97a443671dbd1dec5556448e69dc88a0c2cb6ff01c61710f6edcb748265eecc5
+2026-04-08T07:08:54.2162735Z Received 113246208 of 3497902883 (3.2%), 107.9 MBs/sec
+2026-04-08T07:08:55.2140750Z Received 352321536 of 3497902883 (10.1%), 167.9 MBs/sec
+2026-04-08T07:08:56.2183664Z Received 549453824 of 3497902883 (15.7%), 174.5 MBs/sec
+2026-04-08T07:08:57.2212821Z Received 767557632 of 3497902883 (21.9%), 182.8 MBs/sec
+2026-04-08T07:08:58.2171909Z Received 939524096 of 3497902883 (26.9%), 179.1 MBs/sec
+2026-04-08T07:08:59.2171036Z Received 1132462080 of 3497902883 (32.4%), 179.9 MBs/sec
+2026-04-08T07:09:00.2252779Z Received 1266679808 of 3497902883 (36.2%), 172.4 MBs/sec
+2026-04-08T07:09:01.2194052Z Received 1476395008 of 3497902883 (42.2%), 175.8 MBs/sec
+2026-04-08T07:09:02.2232739Z Received 1694498816 of 3497902883 (48.4%), 179.4 MBs/sec
+2026-04-08T07:09:03.2209542Z Received 1904214016 of 3497902883 (54.4%), 181.5 MBs/sec
+2026-04-08T07:09:04.2223129Z Received 2101346304 of 3497902883 (60.1%), 182.0 MBs/sec
+2026-04-08T07:09:05.2240276Z Received 2302672896 of 3497902883 (65.8%), 182.8 MBs/sec
+2026-04-08T07:09:06.2236879Z Received 2503999488 of 3497902883 (71.6%), 183.5 MBs/sec
+2026-04-08T07:09:07.2581805Z Received 2684354560 of 3497902883 (76.7%), 182.3 MBs/sec
+2026-04-08T07:09:08.2570697Z Received 2868903936 of 3497902883 (82.0%), 181.9 MBs/sec
+2026-04-08T07:09:09.2577729Z Received 3074424832 of 3497902883 (87.9%), 182.7 MBs/sec
+2026-04-08T07:09:10.2653502Z Received 3254779904 of 3497902883 (93.0%), 182.1 MBs/sec
+2026-04-08T07:09:11.2621275Z Received 3472883712 of 3497902883 (99.3%), 183.5 MBs/sec
+2026-04-08T07:09:11.5632057Z Received 3497902883 of 3497902883 (100.0%), 181.8 MBs/sec
+2026-04-08T07:09:11.5632813Z Cache Size: ~3336 MB (3497902883 B)
+2026-04-08T07:09:11.5672303Z [command]/usr/bin/tar -xf /home/runner/work/_temp/114f51b6-9294-4cdd-9996-9182af4ae0a9/cache.tzst -P -C /home/runner/work/PiliPlus/PiliPlus --use-compress-program unzstd
+2026-04-08T07:09:32.5401611Z Cache restored successfully
+2026-04-08T07:09:32.6985144Z Cache restored from key: setup-java-Linux-x64-gradle-97a443671dbd1dec5556448e69dc88a0c2cb6ff01c61710f6edcb748265eecc5
+2026-04-08T07:09:33.0738212Z ##[group]Run subosito/flutter-action@v2
+2026-04-08T07:09:33.0738811Z with:
+2026-04-08T07:09:33.0739002Z   channel: stable
+2026-04-08T07:09:33.0739221Z   flutter-version-file: pubspec.yaml
+2026-04-08T07:09:33.0739479Z   cache: true
+2026-04-08T07:09:33.0739666Z   architecture: X64
+2026-04-08T07:09:33.0739876Z   pub-cache-path: default
+2026-04-08T07:09:33.0740085Z   dry-run: false
+2026-04-08T07:09:33.0740335Z   git-source: https://github.com/flutter/flutter.git
+2026-04-08T07:09:33.0740626Z env:
+2026-04-08T07:09:33.0740864Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:33.0741253Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:33.0741780Z ##[endgroup]
+2026-04-08T07:09:33.1187841Z ##[group]Run chmod +x "$GITHUB_ACTION_PATH/setup.sh"
+2026-04-08T07:09:33.1188435Z [36;1mchmod +x "$GITHUB_ACTION_PATH/setup.sh"[0m
+2026-04-08T07:09:33.3266174Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-04-08T07:09:33.3266606Z env:
+2026-04-08T07:09:33.3266890Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:33.3267336Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:33.3267664Z ##[endgroup]
+2026-04-08T07:09:33.3715092Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh -p \
+2026-04-08T07:09:33.3715594Z [36;1m$GITHUB_ACTION_PATH/setup.sh -p \[0m
+2026-04-08T07:09:33.3715953Z [36;1m  -n '' \[0m
+2026-04-08T07:09:33.3716238Z [36;1m  -f 'pubspec.yaml' \[0m
+2026-04-08T07:09:33.3716565Z [36;1m  -a 'X64' \[0m
+2026-04-08T07:09:33.3716826Z [36;1m  -k '' \[0m
+2026-04-08T07:09:33.3717076Z [36;1m  -c '' \[0m
+2026-04-08T07:09:33.3717319Z [36;1m  -l '' \[0m
+2026-04-08T07:09:33.3717563Z [36;1m  -d 'default' \[0m
+2026-04-08T07:09:33.3717961Z [36;1m  -g 'https://github.com/flutter/flutter.git' \[0m
+2026-04-08T07:09:33.3718437Z [36;1m  stable[0m
+2026-04-08T07:09:33.3752620Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-04-08T07:09:33.3753105Z env:
+2026-04-08T07:09:33.3753490Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:33.3754117Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:33.3754571Z ##[endgroup]
+2026-04-08T07:09:34.6701947Z ##[group]Run actions/cache@v5
+2026-04-08T07:09:34.6702190Z with:
+2026-04-08T07:09:34.6702429Z   path: /opt/hostedtoolcache/flutter/stable-3.41.6-x64
+2026-04-08T07:09:34.6702871Z   key: flutter-linux-stable-3.41.6-x64-db50e20168db8fee486b9abf32fc912de3bc5b6a
+2026-04-08T07:09:34.6703279Z   enableCrossOsArchive: false
+2026-04-08T07:09:34.6703516Z   fail-on-cache-miss: false
+2026-04-08T07:09:34.6703733Z   lookup-only: false
+2026-04-08T07:09:34.6703920Z   save-always: false
+2026-04-08T07:09:34.6704104Z env:
+2026-04-08T07:09:34.6704346Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:34.6704733Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:34.6705054Z ##[endgroup]
+2026-04-08T07:09:35.0697682Z Cache hit for: flutter-linux-stable-3.41.6-x64-db50e20168db8fee486b9abf32fc912de3bc5b6a
+2026-04-08T07:09:36.1890257Z Received 155189248 of 1663985562 (9.3%), 148.0 MBs/sec
+2026-04-08T07:09:37.1889007Z Received 402653184 of 1663985562 (24.2%), 192.0 MBs/sec
+2026-04-08T07:09:38.1887760Z Received 658505728 of 1663985562 (39.6%), 209.3 MBs/sec
+2026-04-08T07:09:39.1908886Z Received 889192448 of 1663985562 (53.4%), 211.9 MBs/sec
+2026-04-08T07:09:40.2003330Z Received 1119879168 of 1663985562 (67.3%), 213.1 MBs/sec
+2026-04-08T07:09:41.2042728Z Received 1342177280 of 1663985562 (80.7%), 212.9 MBs/sec
+2026-04-08T07:09:42.2018880Z Received 1581252608 of 1663985562 (95.0%), 215.0 MBs/sec
+2026-04-08T07:09:42.6697259Z Received 1663985562 of 1663985562 (100.0%), 212.1 MBs/sec
+2026-04-08T07:09:42.6700214Z Cache Size: ~1587 MB (1663985562 B)
+2026-04-08T07:09:42.6739915Z [command]/usr/bin/tar -xf /home/runner/work/_temp/d11244ff-f109-4588-9baa-6fe1fd8e671b/cache.tzst -P -C /home/runner/work/PiliPlus/PiliPlus --use-compress-program unzstd
+2026-04-08T07:09:47.1784581Z Cache restored successfully
+2026-04-08T07:09:47.2621334Z Cache restored from key: flutter-linux-stable-3.41.6-x64-db50e20168db8fee486b9abf32fc912de3bc5b6a
+2026-04-08T07:09:47.9794652Z ##[group]Run actions/cache@v5
+2026-04-08T07:09:47.9794899Z with:
+2026-04-08T07:09:47.9795115Z   path: /home/runner/.pub-cache
+2026-04-08T07:09:47.9795839Z   key: flutter-pub-linux-stable-3.41.6-x64-db50e20168db8fee486b9abf32fc912de3bc5b6a-84a91d52760c83f192d1767bd5fdc9c42cd022a688a9277b2a77faffc279c5de
+2026-04-08T07:09:47.9796566Z   enableCrossOsArchive: false
+2026-04-08T07:09:47.9796816Z   fail-on-cache-miss: false
+2026-04-08T07:09:47.9797043Z   lookup-only: false
+2026-04-08T07:09:47.9797246Z   save-always: false
+2026-04-08T07:09:47.9797438Z env:
+2026-04-08T07:09:47.9797682Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:47.9798083Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:47.9798410Z ##[endgroup]
+2026-04-08T07:09:48.1858094Z Cache not found for input keys: flutter-pub-linux-stable-3.41.6-x64-db50e20168db8fee486b9abf32fc912de3bc5b6a-84a91d52760c83f192d1767bd5fdc9c42cd022a688a9277b2a77faffc279c5de
+2026-04-08T07:09:48.2220186Z ##[group]Run $GITHUB_ACTION_PATH/setup.sh \
+2026-04-08T07:09:48.2220559Z [36;1m$GITHUB_ACTION_PATH/setup.sh \[0m
+2026-04-08T07:09:48.2220824Z [36;1m  -n '3.41.6' \[0m
+2026-04-08T07:09:48.2221045Z [36;1m  -a 'x64' \[0m
+2026-04-08T07:09:48.2221338Z [36;1m  -c '/opt/hostedtoolcache/flutter/stable-3.41.6-x64' \[0m
+2026-04-08T07:09:48.2221984Z [36;1m  -d '/home/runner/.pub-cache' \[0m
+2026-04-08T07:09:48.2222239Z [36;1m  stable[0m
+2026-04-08T07:09:48.2249789Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-04-08T07:09:48.2250117Z env:
+2026-04-08T07:09:48.2250374Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:48.2250777Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:48.2251095Z ##[endgroup]
+2026-04-08T07:09:48.4162363Z ##[group]Run lib/scripts/patch.ps1 android
+2026-04-08T07:09:48.4162710Z [36;1mlib/scripts/patch.ps1 android[0m
+2026-04-08T07:09:48.4205069Z shell: /usr/bin/pwsh -command ". '{0}'"
+2026-04-08T07:09:48.4205349Z env:
+2026-04-08T07:09:48.4205615Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:48.4206029Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:09:48.4206454Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.41.6-x64/flutter
+2026-04-08T07:09:48.4206800Z   PUB_CACHE: /home/runner/.pub-cache
+2026-04-08T07:09:48.4207041Z ##[endgroup]
+2026-04-08T07:09:51.9993312Z Updating files:  76% (11741/15358)
+2026-04-08T07:09:52.0260566Z Updating files:  77% (11826/15358)
+2026-04-08T07:09:52.0561206Z Updating files:  78% (11980/15358)
+2026-04-08T07:09:52.0809412Z Updating files:  79% (12133/15358)
+2026-04-08T07:09:52.1071815Z Updating files:  80% (12287/15358)
+2026-04-08T07:09:52.1305624Z Updating files:  81% (12440/15358)
+2026-04-08T07:09:52.1456905Z Updating files:  82% (12594/15358)
+2026-04-08T07:09:52.1674178Z Updating files:  83% (12748/15358)
+2026-04-08T07:09:52.1884284Z Updating files:  84% (12901/15358)
+2026-04-08T07:09:52.2034240Z Updating files:  85% (13055/15358)
+2026-04-08T07:09:52.2148889Z Updating files:  86% (13208/15358)
+2026-04-08T07:09:52.2331071Z Updating files:  87% (13362/15358)
+2026-04-08T07:09:52.2427052Z Updating files:  88% (13516/15358)
+2026-04-08T07:09:52.2572964Z Updating files:  89% (13669/15358)
+2026-04-08T07:09:52.2696146Z Updating files:  90% (13823/15358)
+2026-04-08T07:09:52.2894457Z Updating files:  91% (13976/15358)
+2026-04-08T07:09:52.3088248Z Updating files:  92% (14130/15358)
+2026-04-08T07:09:52.3185738Z Updating files:  93% (14283/15358)
+2026-04-08T07:09:52.3273546Z Updating files:  94% (14437/15358)
+2026-04-08T07:09:52.3423831Z Updating files:  95% (14591/15358)
+2026-04-08T07:09:52.3617744Z Updating files:  96% (14744/15358)
+2026-04-08T07:09:52.3795164Z Updating files:  97% (14898/15358)
+2026-04-08T07:09:52.3926726Z Updating files:  98% (15051/15358)
+2026-04-08T07:09:52.4024809Z Updating files:  99% (15205/15358)
+2026-04-08T07:09:52.4025296Z Updating files: 100% (15358/15358)
+2026-04-08T07:09:52.4025682Z Updating files: 100% (15358/15358), done.
+2026-04-08T07:09:52.4213353Z HEAD is now at db50e20168d Update changelog for 3.41.6 (#184170)
+2026-04-08T07:09:52.7503613Z No local changes to save
+2026-04-08T07:09:53.4336200Z [stable 5cf20a5d68b] Revert "Reimplemented StretchingOverscrollIndicator with Simulation ported from Android 12. (#173849)"
+2026-04-08T07:09:53.4337159Z  Date: Wed Apr 8 07:09:53 2026 +0000
+2026-04-08T07:09:53.4337666Z  3 files changed, 141 insertions(+), 292 deletions(-)
+2026-04-08T07:09:53.8558509Z 362b1de29974ffc1ed6faa826e1df870d7bec75f reverted
+2026-04-08T07:09:53.8661806Z No stash entries found.
+2026-04-08T07:09:53.8781904Z lib/scripts/modal_barrier.patch applied
+2026-04-08T07:09:53.8885423Z lib/scripts/mouse_cursor.patch applied
+2026-04-08T07:09:53.8988961Z lib/scripts/bottom_sheet.patch applied
+2026-04-08T07:09:54.3097536Z Downloading Linux x64 Dart SDK from Flutter engine 69e31205362b4e59b7eb89b24797e687b4b67afe...
+2026-04-08T07:09:54.3174851Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-04-08T07:09:54.3175504Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-04-08T07:09:54.3175966Z 
+2026-04-08T07:09:54.7985744Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-04-08T07:09:55.7992426Z   9  222M    9 22.1M    0     0  46.0M      0  0:00:04 --:--:--  0:00:04 45.9M
+2026-04-08T07:09:56.0916263Z  75  222M   75  168M    0     0   113M      0  0:00:01  0:00:01 --:--:--  113M
+2026-04-08T07:09:56.0917031Z 100  222M  100  222M    0     0   125M      0  0:00:01  0:00:01 --:--:--  125M
+2026-04-08T07:10:01.3414419Z Building flutter tool...
+2026-04-08T07:10:01.3593535Z Resolving dependencies...
+2026-04-08T07:10:01.7881259Z Downloading packages...
+2026-04-08T07:10:04.1909413Z   _fe_analyzer_shared 92.0.0 (98.0.0 available)
+2026-04-08T07:10:04.1910415Z   analyzer 9.0.0 (12.0.0 available)
+2026-04-08T07:10:04.1910839Z   archive 3.6.1 (4.0.9 available)
+2026-04-08T07:10:04.1911187Z   async 2.13.0 (2.13.1 available)
+2026-04-08T07:10:04.1911890Z   built_value 8.12.1 (8.12.5 available)
+2026-04-08T07:10:04.1912409Z   dart_style 3.1.3 (3.1.8 available)
+2026-04-08T07:10:04.1912912Z   dds 5.1.0 (5.3.0 available)
+2026-04-08T07:10:04.1913553Z   devtools_shared 12.0.0 (12.1.0 available)
+2026-04-08T07:10:04.1914122Z   dwds 26.2.3 (27.0.1 available)
+2026-04-08T07:10:04.1914699Z   ffi 2.1.4 (2.2.0 available)
+2026-04-08T07:10:04.1915120Z   hooks 1.0.0 (1.0.2 available)
+2026-04-08T07:10:04.1915494Z   hooks_runner 1.0.1 (1.1.1 available)
+2026-04-08T07:10:04.1915899Z   js 0.7.2 (discontinued)
+2026-04-08T07:10:04.1931703Z   json_annotation 4.9.0 (4.11.0 available)
+2026-04-08T07:10:04.1932103Z   json_rpc_2 4.0.0 (4.1.0 available)
+2026-04-08T07:10:04.1932472Z   meta 1.17.0 (1.18.2 available)
+2026-04-08T07:10:04.1932820Z   mustache_template 2.0.2 (2.0.4 available)
+2026-04-08T07:10:04.1933191Z   petitparser 7.0.1 (7.0.2 available)
+2026-04-08T07:10:04.1933542Z   source_span 1.10.1 (1.10.2 available)
+2026-04-08T07:10:04.1933939Z   test 1.30.0 (1.31.0 available)
+2026-04-08T07:10:04.1934356Z   test_api 0.7.10 (0.7.11 available)
+2026-04-08T07:10:04.1934696Z   test_core 0.6.16 (0.6.17 available)
+2026-04-08T07:10:04.1935075Z   unified_analytics 8.0.10 (8.0.14 available)
+2026-04-08T07:10:04.1935347Z   usage 4.1.1 (discontinued)
+2026-04-08T07:10:04.1935565Z   uuid 4.5.2 (4.5.3 available)
+2026-04-08T07:10:04.1935793Z   watcher 1.2.0 (1.2.1 available)
+2026-04-08T07:10:04.1936044Z   yaml_edit 2.2.3 (2.2.4 available)
+2026-04-08T07:10:04.1936290Z No dependencies changed.
+2026-04-08T07:10:04.1936529Z 2 packages are discontinued.
+2026-04-08T07:10:04.1936863Z 25 packages have newer versions incompatible with dependency constraints.
+2026-04-08T07:10:04.1937253Z Try `dart pub outdated` for more information.
+2026-04-08T07:10:18.7077309Z Flutter 3.41.6 • channel stable • https://github.com/flutter/flutter.git
+2026-04-08T07:10:18.7078333Z Framework • revision db50e20168 (13 days ago) • 2026-03-25 16:21:00 -0700
+2026-04-08T07:10:18.7079309Z Engine • hash f30a7ba78d16a6eaa86bb3fe2b55c668d1da49c6 (revision 69e3120536) (8 days ago) • 2026-03-30 22:55:23.000Z
+2026-04-08T07:10:18.7079976Z Tools • Dart 3.12.0 (build 3.12.0-303.0.dev) • DevTools 2.57.0-dev.0
+2026-04-08T07:10:18.8619652Z ##[group]Run if [ ! -z "" ]; then
+2026-04-08T07:10:18.8619963Z [36;1mif [ ! -z "" ]; then[0m
+2026-04-08T07:10:18.8620258Z [36;1m  echo "" | base64 --decode > android/app/key.jks[0m
+2026-04-08T07:10:18.8620622Z [36;1m  echo storeFile='key.jks' >> android/key.properties[0m
+2026-04-08T07:10:18.8620982Z [36;1m  echo storePassword='' >> android/key.properties[0m
+2026-04-08T07:10:18.8621306Z [36;1m  echo keyAlias='' >> android/key.properties[0m
+2026-04-08T07:10:18.8621997Z [36;1m  echo keyPassword='' >> android/key.properties[0m
+2026-04-08T07:10:18.8622283Z [36;1mfi[0m
+2026-04-08T07:10:18.8651570Z shell: /usr/bin/bash -e {0}
+2026-04-08T07:10:18.8651844Z env:
+2026-04-08T07:10:18.8652119Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:10:18.8652532Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:10:18.8652958Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.41.6-x64/flutter
+2026-04-08T07:10:18.8653352Z   PUB_CACHE: /home/runner/.pub-cache
+2026-04-08T07:10:18.8653610Z ##[endgroup]
+2026-04-08T07:10:18.8728320Z ##[group]Run lib/scripts/build.ps1 android
+2026-04-08T07:10:18.8728636Z [36;1mlib/scripts/build.ps1 android[0m
+2026-04-08T07:10:18.8760099Z shell: /usr/bin/pwsh -command ". '{0}'"
+2026-04-08T07:10:18.8760369Z env:
+2026-04-08T07:10:18.8760633Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:10:18.8761034Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:10:18.8761651Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.41.6-x64/flutter
+2026-04-08T07:10:18.8762002Z   PUB_CACHE: /home/runner/.pub-cache
+2026-04-08T07:10:18.8762260Z ##[endgroup]
+2026-04-08T07:10:19.3493843Z ##[group]Run flutter build apk --release --split-per-abi --dart-define-from-file=pili_release.json --pub
+2026-04-08T07:10:19.3494811Z [36;1mflutter build apk --release --split-per-abi --dart-define-from-file=pili_release.json --pub[0m
+2026-04-08T07:10:19.3524146Z shell: /usr/bin/bash -e {0}
+2026-04-08T07:10:19.3524440Z env:
+2026-04-08T07:10:19.3524788Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:10:19.3525328Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.18-8/x64
+2026-04-08T07:10:19.3525885Z   FLUTTER_ROOT: /opt/hostedtoolcache/flutter/stable-3.41.6-x64/flutter
+2026-04-08T07:10:19.3526344Z   PUB_CACHE: /home/runner/.pub-cache
+2026-04-08T07:10:19.3526665Z   version: 2.0.3-e20b01901+4839
+2026-04-08T07:10:19.3526940Z ##[endgroup]
+2026-04-08T07:10:19.6462181Z Downloading Material fonts...                                      180ms
+2026-04-08T07:10:19.7057818Z Downloading Gradle Wrapper...                                        6ms
+2026-04-08T07:10:19.9411691Z Downloading package sky_engine...                                  220ms
+2026-04-08T07:10:20.1472408Z Downloading package flutter_gpu...                                 129ms
+2026-04-08T07:10:20.4401310Z Downloading flutter_patched_sdk tools...                           279ms
+2026-04-08T07:10:20.8154565Z Downloading flutter_patched_sdk_product tools...                   273ms
+2026-04-08T07:10:21.8248761Z Downloading linux-x64 tools...                                     908ms
+2026-04-08T07:10:22.6910336Z Downloading linux-x64/font-subset tools...                         197ms
+2026-04-08T07:10:23.0205512Z Downloading android-arm-profile/linux-x64 tools...                 214ms
+2026-04-08T07:10:23.3394274Z Downloading android-arm-release/linux-x64 tools...                 248ms
+2026-04-08T07:10:23.6276756Z Downloading android-arm64-profile/linux-x64 tools...               226ms
+2026-04-08T07:10:23.9286691Z Downloading android-arm64-release/linux-x64 tools...               229ms
+2026-04-08T07:10:24.1904520Z Downloading android-x64-profile/linux-x64 tools...                 199ms
+2026-04-08T07:10:24.4678084Z Downloading android-x64-release/linux-x64 tools...                 205ms
+2026-04-08T07:10:24.6312725Z Resolving dependencies...
+2026-04-08T07:10:38.4829150Z Downloading packages...
+2026-04-08T07:10:52.8181381Z   _fe_analyzer_shared 93.0.0 (98.0.0 available)
+2026-04-08T07:10:52.8183162Z   analyzer 10.0.1 (12.0.0 available)
+2026-04-08T07:10:52.8183577Z   dart_style 3.1.7 (3.1.8 available)
+2026-04-08T07:10:52.8184077Z ! font_awesome_flutter 10.9.0 (overridden) (11.0.0 available)
+2026-04-08T07:10:52.8185013Z ! media_kit 1.1.11 from git https://github.com/My-Responsitories/media-kit.git at 14c3ee in media_kit (overridden)
+2026-04-08T07:10:52.8186422Z ! media_kit_libs_android_video 1.3.7 from git https://github.com/My-Responsitories/media-kit.git at 14c3ee in libs/android/media_kit_libs_android_video (overridden)
+2026-04-08T07:10:52.8188014Z ! media_kit_libs_ios_video 1.1.4 from git https://github.com/bggRGjQaUbCoE/media-kit.git at 547999 in libs/ios/media_kit_libs_ios_video (overridden)
+2026-04-08T07:10:52.8189381Z ! media_kit_libs_macos_video 1.1.4 from git https://github.com/bggRGjQaUbCoE/media-kit.git at 547999 in libs/macos/media_kit_libs_macos_video (overridden)
+2026-04-08T07:10:52.8190295Z ! media_kit_libs_video 1.0.5 from git https://github.com/My-Responsitories/media-kit.git at 14c3ee in libs/universal/media_kit_libs_video (overridden)
+2026-04-08T07:10:52.8191232Z ! media_kit_libs_windows_video 1.0.10 from git https://github.com/My-Responsitories/media-kit.git at 14c3ee in libs/windows/media_kit_libs_windows_video (overridden)
+2026-04-08T07:10:52.8192457Z ! media_kit_native_event_loop 1.0.9 from git https://github.com/My-Responsitories/media-kit.git at 14c3ee in media_kit_native_event_loop (overridden)
+2026-04-08T07:10:52.8193366Z ! media_kit_video 1.2.5 from git https://github.com/My-Responsitories/media-kit.git at 14c3ee in media_kit_video (overridden)
+2026-04-08T07:10:52.8194298Z   meta 1.17.0 (1.18.2 available)
+2026-04-08T07:10:52.8194675Z ! mime 2.0.0 (overridden)
+2026-04-08T07:10:52.8194996Z ! path 1.9.1 (overridden)
+2026-04-08T07:10:52.8195420Z ! path_provider_android 2.2.23 (overridden) (2.3.0 available)
+2026-04-08T07:10:52.8195921Z   pointycastle 3.9.1 (4.0.0 available)
+2026-04-08T07:10:52.8196305Z   punycoder 0.2.2 (0.3.0 available)
+2026-04-08T07:10:52.8196666Z ! rxdart 0.28.0 (overridden)
+2026-04-08T07:10:52.8197045Z ! screen_brightness_android 2.1.3 (overridden)
+2026-04-08T07:10:52.8197485Z ! screen_brightness_ios 2.1.2 (overridden)
+2026-04-08T07:10:52.8197973Z ! screen_brightness_platform_interface 2.1.0 (overridden)
+2026-04-08T07:10:52.8198370Z   test_api 0.7.10 (0.7.11 available)
+2026-04-08T07:10:52.8198616Z   vector_math 2.2.0 (2.3.0 available)
+2026-04-08T07:10:52.8198848Z   win32 5.15.0 (6.0.0 available)
+2026-04-08T07:10:52.8199082Z   win32_registry 2.1.0 (3.0.2 available)
+2026-04-08T07:10:52.8201018Z Got dependencies!
+2026-04-08T07:10:52.8201693Z 12 packages have newer versions incompatible with dependency constraints.
+2026-04-08T07:10:52.8202245Z Try `flutter pub outdated` for more information.
+2026-04-08T07:11:23.1609533Z Running Gradle task 'assembleRelease'...                        
+2026-04-08T07:11:23.1616583Z Downloading file from: https://github.com/My-Responsitories/libmpv-android-video-build/releases/download/vnext/default-arm64-v8a.jar
+2026-04-08T07:11:24.0558609Z Downloading file from: https://github.com/My-Responsitories/libmpv-android-video-build/releases/download/vnext/default-armeabi-v7a.jar
+2026-04-08T07:11:24.3551043Z Downloading file from: https://github.com/My-Responsitories/libmpv-android-video-build/releases/download/vnext/default-x86_64.jar
+2026-04-08T07:11:24.7549026Z Downloading file from: https://github.com/My-Responsitories/libmpv-android-video-build/releases/download/vnext/default-x86.jar
+2026-04-08T07:11:30.6553107Z Checking the license for package Android SDK Platform 31 in /usr/local/lib/android/sdk/licenses
+2026-04-08T07:11:30.6554367Z License for package Android SDK Platform 31 accepted.
+2026-04-08T07:11:30.6555382Z Preparing "Install Android SDK Platform 31 (revision 1)".
+2026-04-08T07:11:33.3548744Z "Install Android SDK Platform 31 (revision 1)" ready.
+2026-04-08T07:11:33.3549562Z Installing Android SDK Platform 31 in /usr/local/lib/android/sdk/platforms/android-31
+2026-04-08T07:11:33.3550283Z "Install Android SDK Platform 31 (revision 1)" complete.
+2026-04-08T07:11:33.4550048Z "Install Android SDK Platform 31 (revision 1)" finished.
+2026-04-08T07:11:36.2561347Z lib/pages/video/controller.dart:83:50: Error: Can't find '}' to match '{'.
+2026-04-08T07:11:36.2562517Z     with GetTickerProviderStateMixin, BlockMixin {
+2026-04-08T07:11:36.2563035Z                                                  ^
+2026-04-08T07:11:47.1549713Z lib/pages/video/controller.dart:292:20: Error: The getter 'LastVideoKey' isn't defined for the type 'VideoDetailController'.
+2026-04-08T07:11:47.1573482Z  - 'VideoDetailController' is from 'package:PiliPlus/pages/video/controller.dart' ('lib/pages/video/controller.dart').
+2026-04-08T07:11:47.1576737Z Try correcting the name to the name of an existing getter, or defining a getter or field named 'LastVideoKey'.
+2026-04-08T07:11:47.1577825Z       videoBox.put(LastVideoKey.lastVideoBvid, bvid);
+2026-04-08T07:11:47.1578433Z                    ^^^^^^^^^^^^
+2026-04-08T07:11:47.1579392Z lib/pages/video/controller.dart:293:20: Error: The getter 'LastVideoKey' isn't defined for the type 'VideoDetailController'.
+2026-04-08T07:11:47.1580847Z  - 'VideoDetailController' is from 'package:PiliPlus/pages/video/controller.dart' ('lib/pages/video/controller.dart').
+2026-04-08T07:11:47.1582477Z Try correcting the name to the name of an existing getter, or defining a getter or field named 'LastVideoKey'.
+2026-04-08T07:11:47.1583488Z       videoBox.put(LastVideoKey.lastVideoCid, cid.value);
+2026-04-08T07:11:47.1584103Z                    ^^^^^^^^^^^^
+2026-04-08T07:11:47.1585675Z lib/pages/video/controller.dart:294:20: Error: The getter 'LastVideoKey' isn't defined for the type 'VideoDetailController'.
+2026-04-08T07:11:47.1587229Z  - 'VideoDetailController' is from 'package:PiliPlus/pages/video/controller.dart' ('lib/pages/video/controller.dart').
+2026-04-08T07:11:47.1588599Z Try correcting the name to the name of an existing getter, or defining a getter or field named 'LastVideoKey'.
+2026-04-08T07:11:47.1589580Z       videoBox.put(LastVideoKey.lastVideoAid, aid);
+2026-04-08T07:11:47.1590174Z                    ^^^^^^^^^^^^
+2026-04-08T07:11:47.1591091Z lib/pages/video/controller.dart:295:20: Error: The getter 'LastVideoKey' isn't defined for the type 'VideoDetailController'.
+2026-04-08T07:11:47.1592719Z  - 'VideoDetailController' is from 'package:PiliPlus/pages/video/controller.dart' ('lib/pages/video/controller.dart').
+2026-04-08T07:11:47.1594008Z Try correcting the name to the name of an existing getter, or defining a getter or field named 'LastVideoKey'.
+2026-04-08T07:11:47.1595021Z       videoBox.put(LastVideoKey.lastVideoBusiness, videoType.name);
+2026-04-08T07:11:47.1595690Z                    ^^^^^^^^^^^^
+2026-04-08T07:11:47.1596602Z lib/pages/video/controller.dart:322:24: Error: The getter 'LastVideoKey' isn't defined for the type 'VideoDetailController'.
+2026-04-08T07:11:47.1598006Z  - 'VideoDetailController' is from 'package:PiliPlus/pages/video/controller.dart' ('lib/pages/video/controller.dart').
+2026-04-08T07:11:47.1599380Z Try correcting the name to the name of an existing getter, or defining a getter or field named 'LastVideoKey'.
+2026-04-08T07:11:47.1600362Z           videoBox.put(LastVideoKey.lastVideoEpid, epId);
+2026-04-08T07:11:47.1600964Z                        ^^^^^^^^^^^^
+2026-04-08T07:11:47.1630607Z lib/pages/video/controller.dart:327:22: Error: The getter 'LastVideoKey' isn't defined for the type 'VideoDetailController'.
+2026-04-08T07:11:47.1638038Z  - 'VideoDetailController' is from 'package:PiliPlus/pages/video/controller.dart' ('lib/pages/video/controller.dart').
+2026-04-08T07:11:47.1639348Z Try correcting the name to the name of an existing getter, or defining a getter or field named 'LastVideoKey'.
+2026-04-08T07:11:47.1640568Z         videoBox.put(LastVideoKey.lastVideoTitle, title);
+2026-04-08T07:11:47.1641067Z                      ^^^^^^^^^^^^
+2026-04-08T07:11:47.1642073Z lib/pages/video/controller.dart:330:22: Error: The getter 'LastVideoKey' isn't defined for the type 'VideoDetailController'.
+2026-04-08T07:11:47.1643459Z  - 'VideoDetailController' is from 'package:PiliPlus/pages/video/controller.dart' ('lib/pages/video/controller.dart').
+2026-04-08T07:11:47.1644707Z Try correcting the name to the name of an existing getter, or defining a getter or field named 'LastVideoKey'.
+2026-04-08T07:11:47.1645585Z         videoBox.put(LastVideoKey.lastVideoCover, cover);
+2026-04-08T07:11:47.1646084Z                      ^^^^^^^^^^^^
+2026-04-08T07:11:47.1646919Z lib/pages/video/controller.dart:333:22: Error: The getter 'LastVideoKey' isn't defined for the type 'VideoDetailController'.
+2026-04-08T07:11:47.1648253Z  - 'VideoDetailController' is from 'package:PiliPlus/pages/video/controller.dart' ('lib/pages/video/controller.dart').
+2026-04-08T07:11:47.1649431Z Try correcting the name to the name of an existing getter, or defining a getter or field named 'LastVideoKey'.
+2026-04-08T07:11:47.1650318Z         videoBox.put(LastVideoKey.lastVideoPage, pageIndex);
+2026-04-08T07:11:47.1650833Z                      ^^^^^^^^^^^^
+2026-04-08T07:11:47.1651834Z lib/pages/video/controller.dart:338:22: Error: The getter 'LastVideoKey' isn't defined for the type 'VideoDetailController'.
+2026-04-08T07:11:47.1653128Z  - 'VideoDetailController' is from 'package:PiliPlus/pages/video/controller.dart' ('lib/pages/video/controller.dart').
+2026-04-08T07:11:47.1654302Z Try correcting the name to the name of an existing getter, or defining a getter or field named 'LastVideoKey'.
+2026-04-08T07:11:47.1655044Z         videoBox.put(LastVideoKey.lastVideoTimestamp, playedTime!.inMilliseconds);
+2026-04-08T07:11:47.1655434Z                      ^^^^^^^^^^^^
+2026-04-08T07:11:47.1657795Z lib/pages/video/controller.dart:1549:9: Error: The method 'defaultDialog' isn't defined for the type '_GetImpl'.
+2026-04-08T07:11:47.1659133Z  - '_GetImpl' is from 'package:get/get_core/src/get_main.dart' ('../../../.pub-cache/git/getx-81b8a71982f89b46fa868b315cd71ff6a6ddf895/lib/get_core/src/get_main.dart').
+2026-04-08T07:11:47.1660344Z Try correcting the name to the name of an existing method, or defining a method named 'defaultDialog'.
+2026-04-08T07:11:47.1660962Z     Get.defaultDialog(
+2026-04-08T07:11:47.1661248Z         ^^^^^^^^^^^^^
+2026-04-08T07:11:59.2547537Z Target kernel_snapshot_program failed: Exception
+2026-04-08T07:11:59.2549269Z 
+2026-04-08T07:11:59.3569500Z 
+2026-04-08T07:11:59.3571758Z FAILURE: Build failed with an exception.
+2026-04-08T07:11:59.3572152Z 
+2026-04-08T07:11:59.3572287Z * What went wrong:
+2026-04-08T07:11:59.3572766Z Execution failed for task ':app:compileFlutterBuildRelease'.
+2026-04-08T07:11:59.3573862Z > Process 'command '/opt/hostedtoolcache/flutter/stable-3.41.6-x64/flutter/bin/flutter'' finished with non-zero exit value 1
+2026-04-08T07:11:59.3574629Z 
+2026-04-08T07:11:59.3574737Z * Try:
+2026-04-08T07:11:59.3575113Z > Run with --stacktrace option to get the stack trace.
+2026-04-08T07:11:59.3575693Z > Run with --info or --debug option to get more log output.
+2026-04-08T07:11:59.3576229Z > Run with --scan to get full insights.
+2026-04-08T07:11:59.3576708Z > Get more help at https://help.gradle.org.
+2026-04-08T07:11:59.3577022Z 
+2026-04-08T07:11:59.3577150Z BUILD FAILED in 1m 5s
+2026-04-08T07:11:59.9296692Z [=========                              ] 25%                                   
+2026-04-08T07:11:59.9309544Z Running Gradle task 'assembleRelease'...                           66.5s
+2026-04-08T07:11:59.9395798Z Gradle task assembleRelease failed with exit code 1
+2026-04-08T07:11:59.9470661Z ##[error]Process completed with exit code 1.
+2026-04-08T07:11:59.9632790Z Post job cleanup.
+2026-04-08T07:11:59.9709719Z Post job cleanup.
+2026-04-08T07:12:00.1022193Z Post job cleanup.
+2026-04-08T07:12:00.1836053Z [command]/usr/bin/git version
+2026-04-08T07:12:00.1877470Z git version 2.53.0
+2026-04-08T07:12:00.1942423Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/2c4fdfc2-8f99-485a-be0d-81a002d8963c/.gitconfig'
+2026-04-08T07:12:00.1950938Z Temporarily overriding HOME='/home/runner/work/_temp/2c4fdfc2-8f99-485a-be0d-81a002d8963c' before making global git config changes
+2026-04-08T07:12:00.1952846Z Adding repository directory to the temporary git global config as a safe directory
+2026-04-08T07:12:00.1956576Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/PiliPlus/PiliPlus
+2026-04-08T07:12:00.1987211Z Removing SSH command configuration
+2026-04-08T07:12:00.1993903Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-04-08T07:12:00.2031343Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-04-08T07:12:00.2298089Z Removing HTTP extra header
+2026-04-08T07:12:00.2303211Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-04-08T07:12:00.2337424Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-04-08T07:12:00.2573314Z Removing includeIf entries pointing to credentials config files
+2026-04-08T07:12:00.2579854Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-04-08T07:12:00.2603591Z includeif.gitdir:/home/runner/work/PiliPlus/PiliPlus/.git.path
+2026-04-08T07:12:00.2604478Z includeif.gitdir:/home/runner/work/PiliPlus/PiliPlus/.git/worktrees/*.path
+2026-04-08T07:12:00.2605137Z includeif.gitdir:/github/workspace/.git.path
+2026-04-08T07:12:00.2605629Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-04-08T07:12:00.2613363Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/PiliPlus/PiliPlus/.git.path
+2026-04-08T07:12:00.2636071Z /home/runner/work/_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:12:00.2646941Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/PiliPlus/PiliPlus/.git.path /home/runner/work/_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:12:00.2682582Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/PiliPlus/PiliPlus/.git/worktrees/*.path
+2026-04-08T07:12:00.2705213Z /home/runner/work/_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:12:00.2714558Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/PiliPlus/PiliPlus/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:12:00.2747623Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-04-08T07:12:00.2769424Z /github/runner_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:12:00.2777781Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:12:00.2809862Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-04-08T07:12:00.2831571Z /github/runner_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:12:00.2841051Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config
+2026-04-08T07:12:00.2874905Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-04-08T07:12:00.3112384Z Removing credentials config '/home/runner/work/_temp/git-credentials-5042f537-637e-4886-8ec0-92ec6369e67f.config'
+2026-04-08T07:12:00.3262638Z Cleaning up orphan processes
+2026-04-08T07:12:00.3726890Z Terminate orphan process: pid (3855) (java)

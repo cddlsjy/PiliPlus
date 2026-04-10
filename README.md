@@ -1,30 +1,30 @@
----
+***
+
 AIGC:
-    ContentProducer: Minimax Agent AI
-    ContentPropagator: Minimax Agent AI
-    Label: AIGC
-    ProduceID: "00000000000000000000000000000000"
-    PropagateID: "00000000000000000000000000000000"
-    ReservedCode1: 3045022100a4bfe714bf88a17d3674f2b60b3c80b078b0264ece775c1fc3c3b36d4ed21bd202203ef8aa8b124c8407647038112143180a411c2e974ed89cb4edbe0ee270060c16
-    ReservedCode2: 304502202547607cc6464dcb3cddad079260a1a44441751af0368e681c70fc5108472514022100d698fe48abbe788128c7a52a8fd4c7874b9a19a258a457c88e3ed57fa0f8024a
----
+ContentProducer: Minimax Agent AI
+ContentPropagator: Minimax Agent AI
+Label: AIGC
+ProduceID: "00000000000000000000000000000000"
+PropagateID: "00000000000000000000000000000000"
+ReservedCode1: 3045022100a4bfe714bf88a17d3674f2b60b3c80b078b0264ece775c1fc3c3b36d4ed21bd202203ef8aa8b124c8407647038112143180a411c2e974ed89cb4edbe0ee270060c16
+ReservedCode2: 304502202547607cc6464dcb3cddad079260a1a44441751af0368e681c70fc5108472514022100d698fe48abbe788128c7a52a8fd4c7874b9a19a258a457c88e3ed57fa0f8024a
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 <div align="center">
     <img width="200" height="200" src="assets/images/logo/logo.png">
 </div>
 
-
-
 <div align="center">
     <h1>PiliPlus</h1>
 <div align="center">
-    
-![GitHub repo size](https://img.shields.io/github/repo-size/bggRGjQaUbCoE/PiliPlus) 
-![GitHub Repo stars](https://img.shields.io/github/stars/bggRGjQaUbCoE/PiliPlus) 
-![GitHub all releases](https://img.shields.io/github/downloads/bggRGjQaUbCoE/PiliPlus/total) 
+
+!\[GitHub repo size]\(https\://img.shields.io/github/repo-size/bggRGjQaUbCoE/PiliPlus null)
+!\[GitHub Repo stars]\(https\://img.shields.io/github/stars/bggRGjQaUbCoE/PiliPlus null)
+!\[GitHub all releases]\(https\://img.shields.io/github/downloads/bggRGjQaUbCoE/PiliPlus/total null)
+
 </div>
     <p>使用Flutter开发的BiliBili第三方客户端</p>
-    
+
 <img src="assets/screenshots/510shots_so.png" width="32%" alt="home" />
 <img src="assets/screenshots/174shots_so.png" width="32%" alt="home" />
 <img src="assets/screenshots/850shots_so.png" width="32%" alt="home" />
@@ -33,26 +33,27 @@ AIGC:
 <br/>
 </div>
 
-
-<br/>
+<br />
 
 ## 适配平台
 
-- [x] Android
+- [x] Android，增加遥控器功能！！！
 - [x] iOS
 - [x] Pad
 - [x] Windows
 - [x] Linux
 
-[![Packaging status](https://repology.org/badge/vertical-allrepos/piliplus.svg)](https://repology.org/project/piliplus/versions)
+[!\[Packaging status\](https://repology.org/badge/vertical-allrepos/piliplus.svg null)](https://repology.org/project/piliplus/versions)
 
 ## refactor
 
-- [ ] gRPC [wip]
+- [ ] gRPC \[wip]
 - [x] 用户界面
 - [x] 其他
 
 ## feat
+
+增加遥控器功能！！！
 
 - [x] 编辑动态
 - [x] DLNA 投屏
@@ -149,7 +150,7 @@ AIGC:
 - [x] 番剧分集点赞/投币/收藏
 - [x] bugs
 
-<br/>
+<br />
 
 ## 功能
 
@@ -160,7 +161,6 @@ AIGC:
 - [x] 屏蔽黑名单内用户视频
 - [x] 无痕模式（播放视为未登录）
 - [x] 游客模式（推荐视为未登录）
-
 - [x] 用户相关
   - [x] 粉丝、关注用户、拉黑用户查看
   - [x] 用户主页查看
@@ -170,12 +170,10 @@ AIGC:
   - [x] 观看记录
   - [x] 我的收藏
   - [x] 站内私信
-  
 - [x] 动态相关
   - [x] 全部、投稿、番剧分类查看
   - [x] 动态评论查看
   - [x] 动态评论回复功能
-
 - [x] 视频播放相关
   - [x] 双击快进/快退
   - [x] 双击播放/暂停
@@ -192,14 +190,12 @@ AIGC:
   - [x] 字幕
   - [x] 记忆播放
   - [x] 视频比例：高度/宽度适应、填充、包含等
-     
 - [x] 搜索相关
   - [x] 热搜
   - [x] 搜索历史
   - [x] 默认搜索词
   - [x] 投稿、番剧、直播间、用户搜索
   - [x] 视频搜索排序、按时长筛选
-    
 - [x] 视频详情页相关
   - [x] 视频选集(分p)切换
   - [x] 点赞、投币、收藏/取消收藏
@@ -209,9 +205,8 @@ AIGC:
   - [x] 主楼、二楼评论回复功能
   - [x] 评论点赞
   - [x] 评论笔记图片查看、保存
-
 - [x] 设置相关
-  - [x] 画质、音质、解码方式预设      
+  - [x] 画质、音质、解码方式预设
   - [x] 图片质量设定
   - [x] 主题模式：亮色/暗色/跟随系统
   - [x] 震动反馈(可选)
@@ -220,13 +215,13 @@ AIGC:
   - [x] 横屏适配
 - [ ] 等等
 
-<br/>
+<br />
 
 ## 下载
 
 可以通过右侧release进行下载或拉取代码到本地进行编译
 
-<br/>
+<br />
 
 ## 声明
 
@@ -238,13 +233,12 @@ AIGC:
 
 感谢使用
 
-
-<br/>
+<br />
 
 ## 致谢
 
 - [bilibili-API-collect](https://github.com/SocialSisterYi/bilibili-API-collect)
-- [flutter_meedu_videoplayer](https://github.com/zezo357/flutter_meedu_videoplayer)
+- [flutter\_meedu\_videoplayer](https://github.com/zezo357/flutter_meedu_videoplayer)
 - [media-kit](https://github.com/media-kit/media-kit)
 - [dio](https://pub.dev/packages/dio)
 - 等等
