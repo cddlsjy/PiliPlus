@@ -37,7 +37,7 @@ ReservedCode2: 304502202547607cc6464dcb3cddad079260a1a44441751af0368e681c70fc510
 
 ## 适配平台
 
-- [x] Android，增加遥控器功能！！！
+- [x] Android，增加遥控器功能！！！master
 - [x] iOS
 - [x] Pad
 - [x] Windows
@@ -53,7 +53,7 @@ ReservedCode2: 304502202547607cc6464dcb3cddad079260a1a44441751af0368e681c70fc510
 
 ## feat
 
-增加遥控器功能！！！
+增加遥控器功能！！！--mastor
 
 - [x] 编辑动态
 - [x] DLNA 投屏
