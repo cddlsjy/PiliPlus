@@ -27,7 +27,7 @@
 
 ## 适配平台
 
-- [x] Android
+- [x] Android and TV 遥控器！！！
 - [x] iOS
 - [x] Pad
 - [x] Windows
