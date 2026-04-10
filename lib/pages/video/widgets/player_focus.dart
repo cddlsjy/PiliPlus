@@ -38,8 +38,14 @@ class PlayerFocus extends StatefulWidget {
 }
 
 class _PlayerFocusState extends State<PlayerFocus> {
+  Timer? _upDoublePressTimer;
+  Timer? _downDoublePressTimer;
+  final _doublePressDuration = const Duration(milliseconds: 300);
+
   @override
   void dispose() {
+    _upDoublePressTimer?.cancel();
+    _downDoublePressTimer?.cancel();
     super.dispose();
   }
 
