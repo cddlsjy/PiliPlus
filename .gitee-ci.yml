@@ -1,0 +1,66 @@
+# .gitee-ci.yml
+image: ubuntu:22.04
+
+stages:
+  - build
+
+variables:
+  FLUTTER_VERSION: "3.27.0"          # 改为你项目需要的 Flutter 版本
+  JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
+
+before_script:
+  # 安装基础依赖
+  - apt-get update -qq
+  - apt-get install -y -qq curl git unzip xz-utils zip libglu1-mesa openjdk-17-jdk-headless
+  # 安装 Flutter
+  - git clone https://github.com/flutter/flutter.git -b stable --depth 1 /opt/flutter
+  - export PATH="$PATH:/opt/flutter/bin"
+  - flutter doctor -v
+  - flutter --version
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - /opt/flutter
+    - $HOME/.pub-cache
+    - $HOME/.gradle/caches
+    - $HOME/.gradle/wrapper
+
+build_android:
+  stage: build
+  only:
+    - push
+    - tags
+    - web
+  script:
+    - export PATH="$PATH:/opt/flutter/bin"
+    - cd android
+    # 可选：写入签名密钥（从 Gitee 秘密变量解码）
+    - |
+      if [ -n "$SIGN_KEYSTORE_BASE64" ]; then
+        echo "$SIGN_KEYSTORE_BASE64" | base64 -d > key.jks
+        echo "storeFile=key.jks" >> key.properties
+        echo "storePassword=$KEYSTORE_PASSWORD" >> key.properties
+        echo "keyAlias=$KEY_ALIAS" >> key.properties
+        echo "keyPassword=$KEY_PASSWORD" >> key.properties
+      fi
+    - cd ..
+    # 获取 pub 依赖
+    - flutter pub get
+    # 构建 APK（拆分 ABI）
+    - flutter build apk --release --split-per-abi
+    # 重命名产物（可选）
+    - |
+      for file in build/app/outputs/flutter-apk/app-*-release.apk; do
+        abi=$(echo "$file" | sed -E 's|.*app-(.*)-release\.apk|\1|')
+        cp "$file" "PiliPlus_android_${CI_COMMIT_SHORT_SHA}_${abi}.apk"
+      done
+  after_script:
+    # 将产物复制到 Gitee 产物目录，流水线结束后可在页面下载
+    - mkdir -p $GITEE_ARTIFACTS_DIR
+    - cp PiliPlus_android_*.apk $GITEE_ARTIFACTS_DIR/ 2>/dev/null || true
+  artifacts:
+    name: "android-apks-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - PiliPlus_android_*.apk
+    expire_in: 7 days
