@@ -1,0 +1,67 @@
+# .workflow/Pipelinebranch-pipeline.yml
+version: '1.0'                        # Gitee Go 语法版本
+
+name: Flutter Android 分支构建
+
+stages:
+  - name: 准备环境
+    steps:
+      - name: 检出代码
+        uses: git-checkout
+
+      - name: 安装 Flutter SDK
+        script: |
+          if [ ! -d "/opt/flutter" ]; then
+            git clone https://github.com/flutter/flutter.git -b stable --depth 1 /opt/flutter
+          fi
+          export PATH="$PATH:/opt/flutter/bin"
+          flutter doctor -v
+
+      - name: 设置 Java 17
+        script: |
+          apt-get update -qq
+          apt-get install -y -qq openjdk-17-jdk-headless
+          export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+          export PATH="$JAVA_HOME/bin:$PATH"
+
+  - name: 构建 Android APK
+    steps:
+      - name: 缓存恢复
+        uses: cache
+        with:
+          key: flutter-android-${{ git.branch }}
+          paths:
+            - /opt/flutter
+            - $HOME/.pub-cache
+            - $HOME/.gradle/caches
+            - $HOME/.gradle/wrapper
+
+      - name: 获取依赖
+        script: |
+          export PATH="$PATH:/opt/flutter/bin"
+          flutter pub get
+
+      - name: 写入签名密钥（可选）
+        if: ${{ secrets.SIGN_KEYSTORE_BASE64 != '' }}
+        script: |
+          echo "${{ secrets.SIGN_KEYSTORE_BASE64 }}" | base64 -d > android/key.jks
+          echo "storeFile=key.jks" >> android/key.properties
+          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+
+      - name: 构建 APK（拆分 ABI）
+        script: |
+          export PATH="$PATH:/opt/flutter/bin"
+          flutter build apk --release --split-per-abi
+          # 重命名产物
+          for file in build/app/outputs/flutter-apk/app-*-release.apk; do
+            abi=$(echo "$file" | sed -E 's|.*app-(.*)-release\.apk|\1|')
+            cp "$file" "PiliPlus_android_${{ git.short_commit }}_${abi}.apk"
+          done
+
+      - name: 上传产物
+        uses: artifact-upload
+        with:
+          path: PiliPlus_android_*.apk
+          retention-days: 7
